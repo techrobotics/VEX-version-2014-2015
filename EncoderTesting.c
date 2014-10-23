@@ -38,11 +38,24 @@ task main()
 	motor[rightDrive] = 0;
 	*/
 
-	while(mainArmDegree < 45){
+	// test 1: driveDistance(4);
+
+	/* test 2: while(mainArmDegree < 100){
 		motor[leftMainArm] = 50;
 		motor[rightMainArm] = 50;
 	}
 	motor[leftMainArm] = 0;
-	motor[rightMainArm] = 0;
+	motor[rightMainArm] = 0;*/
+
+	/*while(mainArmDegree < 45){
+		motor[leftMainArm] = 50;
+		motor[rightMainArm] = 50;
+	}
+	motor[leftMainArm] = 0;
+	motor[rightMainArm] = 0;*/
+
+	//main arm check: 150 degrees, check using iphone
+	//distance driving check
+	//160 degree implementation
 
 }

@@ -5,9 +5,9 @@
 }
 
 #define driveDistance(inch){ \
-	while (lDriveSens < inch/circumference *627.2) \
+	while (lDriveSens < inch/circumference * 627.2 * 12/18) \
 	{ \
-		drive(80, 80); \
+		motor[lDrive] = 25; \
 	} \
 }
 
