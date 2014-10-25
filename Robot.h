@@ -8,7 +8,8 @@
 #define SEC_LIFT_IDLE_SPEED 15
 
 #define CLAW_CLAMP_SPEED 80
-#define CLAW_PIVOT_SPEED 75
+#define CLAW_PIVOT_SPEED 50
+#define CLAW_PIVOT_IDLE_SPEED 30
 
 //OTHER CONSTANTS
 #define circumference 4 * PI

@@ -7,7 +7,7 @@
 #pragma config(Motor,  port2,           lMainArm,      tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_3, 1000)
 #pragma config(Motor,  port3,           lSecArm,       tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_4, 1000)
 #pragma config(Motor,  port4,           clawPivot,     tmotorVex393, openLoop, reversed)
-#pragma config(Motor,  port7,           claw,          tmotorVex269, openLoop)
+#pragma config(Motor,  port7,           claw,          tmotorVex269, openLoop, reversed)
 #pragma config(Motor,  port8,           rSecArm,       tmotorVex393, openLoop)
 #pragma config(Motor,  port9,           rMainArm,      tmotorVex393, openLoop)
 #pragma config(Motor,  port10,          rDrive,        tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_1, 1000)
@@ -26,6 +26,8 @@ task main()
 	lDriveSens = 0;
 	rDriveSens = 0;
 
+	bool pivotIdle = false;
+
 
 
 
@@ -42,8 +44,8 @@ task main()
 		//AMOUNT OF EXTRA PER ROTATION
 		//(USE MULTIPLE ROTATIONS)
 		//SUBTRACT WHAT IS NEEDED
-		driveDistance(4 * PI);
-		motor[lDrive] = 0;
+		//driveDistance(4 * PI);
+		//motor[lDrive] = 0;
 
 
 		//LIMIT MAIN ARM SO SLOWER ABOVE 906
@@ -61,6 +63,7 @@ task main()
 
 
 		//SECONDARY LIFT
+
 
 		if ((vexRT[Btn8U] > 0) && (secArmDegree <= 90)) {
 			moveSecLift(SEC_LIFT_UP_SPEED);
@@ -113,6 +116,16 @@ task main()
 			clampClaw(0);
 		}
 
+		if (vexRT[Btn7L] > 0) {
+			if (!pivotIdle) {
+				pivotIdle = true;
+			}
+
+			else if (pivotIdle) {
+				pivotIdle = false;
+			}
+		}
+
 		//CLAW PIVOT
 		if (vexRT[Btn8R] > 0) {
 			pivotClaw(CLAW_PIVOT_SPEED);
@@ -121,7 +134,12 @@ task main()
 			pivotClaw(-CLAW_PIVOT_SPEED);
 		}
 		else {
-			pivotClaw(0);
+			if (pivotIdle) {
+				pivotClaw(CLAW_PIVOT_IDLE_SPEED);
+			}
+			else {
+				pivotClaw(0);
+			}
 		}
 	}
 
