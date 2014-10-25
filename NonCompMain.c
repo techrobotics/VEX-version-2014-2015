@@ -23,7 +23,7 @@ task main()
 	//INITIALIZATION
 	mainArmSens = 0;
 	secArmSens = 0;
-	nMotorEncoder[lDrive] = 0;
+	lDriveSens = 0;
 	nMotorEncoder[rDrive] = 0;
 
 
@@ -37,12 +37,19 @@ task main()
 	{
 		drive(vexRT[Ch3], vexRT[Ch2]);
 
-		driveDistance(circumference);
+
+		//TEST:
+		//AMOUNT OF EXTRA PER ROTATION
+		//(USE MULTIPLE ROTATIONS)
+		//SUBTRACT WHAT IS NEEDED
+		driveDistance(4 * PI);
+		motor[lDrive] = 0;
 
 
+		//LIMIT MAIN ARM SO SLOWER ABOVE 906
 
 		//MAIN LIFT
-		if (vexRT[Btn7U] > 0 && mainArmDegree < 160) {
+		if (vexRT[Btn7U] > 0 && mainArmDegree < 140) {
 			moveMainLift(TEST_SPEED);
 		}
 		else if (vexRT[Btn7D] > 0) {

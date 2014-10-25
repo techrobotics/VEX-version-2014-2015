@@ -5,7 +5,7 @@ OA STEM Vex Robotics Code for 2014-15 season
 
 =====================
 
-SET UP:
+SET UP Github:
 
 http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1
 
@@ -16,7 +16,29 @@ These are good tutorials on how to set up the GitHub.
 You should probably create your own repository and experiment with the tutorial
 
 NOTE: When dealing with the actual code, don't worry about the Online Repository. We'll be using
-"https://github.com/mduong15/VEX-version-2014-2015"
+"https://github.com/techrobotics/VEX-version-2014-2015"
+
+=====================
+
+SET UP ROBOTC CODE:
+
+1. Make sure your account is configured and everything (do the stuff above).
+2. Open Git Shell
+3. Clone the repo by typing in "git clone https://github.com/techrobotics/VEX-version-2014-2015"
+4. Type in "ls" and make sure you have all of the code.
+5. If you have everything, you're done.
+
+
+=====================
+
+HOW TO GIT (Hopefully you had experience doing this by experimenting with the tutorial):
+
+1. Make Changes
+2. Make sure you're in the directory with the files (you should have [<Branch Name>] in blue or green)
+3. Add the file(s) ("git add <file name>" OR "git add -A" to add all the files)
+4. Commit changes (git commit -m "Put useful message here")
+5. Push the changes onto the online repository (git push)
+
 
 =====================
 
@@ -46,14 +68,5 @@ USEFUL COMMANDS TO NAVIGATE DIRECTORIES (folders):
     mkdir: The mkdir command will allow you to create directories. Example: "mkdir music" will create a directory called "music".
 
 
-=====================
-
-HOW TO GIT (Hopefully you had experience doing this by experimenting with the tutorial):
-
-1. Make Changes
-2. Make sure you're in the directory with the files and the repository has been initialized
-3. Add the file(s) (git add <name>)
-4. Commit changes (git commit -m "Put useful message here")
-5. Push the changes onto the online repository (git push)
  
 
