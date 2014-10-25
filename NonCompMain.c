@@ -63,33 +63,62 @@ task main()
 
 
 		//SECONDARY LIFT
-
-
-		if ((vexRT[Btn8U] > 0) && (secArmDegree <= 90)) {
-			moveSecLift(SEC_LIFT_UP_SPEED);
-		}
-		else if ((vexRT[Btn8U] > 0) && (secArmDegree > 90)) {
-			moveSecLift(-SEC_LIFT_DOWN_SPEED);
-		}
-		else if ((vexRT[Btn8D] > 0) && (secArmDegree <= 90)) {
-			moveSecLift(SEC_LIFT_DOWN_SPEED);
-		}
-		else if ((vexRT[Btn8D] > 0) && (secArmDegree > 90)){
-			moveSecLift(-SEC_LIFT_UP_SPEED);
-		}
-		else {
-			if (secArmDegree > 90) {
-				moveSecLift(-SEC_LIFT_IDLE_SPEED);
+		if (secArmDegree <= 85) {
+			if (vexRT[Btn8U] > 0 ) {
+				moveSecLift(SEC_LIFT_UP_SPEED);
 			}
-			else if (secArmDegree < 90) {
-				moveSecLift(SEC_LIFT_IDLE_SPEED);
+			else if (vexRT[Btn8D] > 0) {
+				moveSecLift(SEC_LIFT_DOWN_SPEED);
 			}
 			else {
-				moveSecLift(0);
+				moveSecLift(SEC_LIFT_IDLE_SPEED);
 			}
 		}
 
+		else if (secArmDegree > 85) {
+			if (vexRT[Btn8U] > 0) {
+				moveSecLift(-SEC_LIFT_DOWN_SPEED);
+			}
+			else if (vexRT[Btn8D] > 0) {
+				moveSecLift(-SEC_LIFT_UP_SPEED);
+			}
+			else {
+				moveSecLift(-SEC_LIFT_IDLE_SPEED);
+			}
+		}
+		else {
+			moveSecLift(0);
+		}
 
+
+		/* if (vexRT[Btn8U] > 0) {
+		if (secArmDegree <= 90){
+		moveSecLift(SEC_LIFT_DOWN_SPEED);
+		}
+		}
+		else if (vexRT[Btn8U] > 0) && {secArmDegree > 90)) {
+		moveSecLift(-SEC_LIFT_DOWN_SPEED);
+		}
+		else if ((vexRT[Btn8D] > 0) && (secArmDegree <= 90)) {
+		moveSecLift(SEC_LIFT_DOWN_SPEED);
+		}
+		else if ((vexRT[Btn8D] > 0) && (secArmDegree > 90)){
+		moveSecLift(-SEC_LIFT_UP_SPEED);
+		}
+		else {
+		if (secArmDegree > 90) {
+		moveSecLift(-SEC_LIFT_IDLE_SPEED);
+		}
+		else if (secArmDegree < 90) {
+		moveSecLift(SEC_LIFT_IDLE_SPEED);
+		}
+		else {
+		moveSecLift(0);
+
+		}
+		}
+
+		*/
 		//OLD SEC_LIFT FOR BACKUP
 
 		/*
