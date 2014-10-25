@@ -1,14 +1,17 @@
-//ROBOT MOVEMENT MACROS
-#define drive(left, right) { \
-	motor[lDrive] = left; \
-	motor[rDrive] = right; \
-}
 
+//ROBOT AUTONOMOUSE MOVEMENT MACROS
 #define driveDistance(inch){ \
 	while (lDriveSens < inch/circumference * 627.2 * 12/18) \
 	{ \
 		motor[lDrive] = 25; \
 	} \
+}
+
+
+//ROBOT USER-CONTROL MOVEMENT MACROS
+#define drive(left, right) { \
+	motor[lDrive] = left; \
+	motor[rDrive] = right; \
 }
 
 #define moveMainLift(speed) { \
@@ -28,6 +31,7 @@
 #define pivotClaw(speed) { \
 	motor[clawPivot] = speed; \
 }
+
 
 //ENCODER CODE
 

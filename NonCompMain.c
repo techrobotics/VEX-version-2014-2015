@@ -24,7 +24,7 @@ task main()
 	mainArmSens = 0;
 	secArmSens = 0;
 	lDriveSens = 0;
-	nMotorEncoder[rDrive] = 0;
+	rDriveSens = 0;
 
 
 
@@ -50,28 +50,29 @@ task main()
 
 		//MAIN LIFT
 		if (vexRT[Btn7U] > 0 && mainArmDegree < 140) {
-			moveMainLift(TEST_SPEED);
+			moveMainLift(MAIN_LIFT_UP_SPEED);
 		}
 		else if (vexRT[Btn7D] > 0) {
-			moveMainLift(LIFT_DOWN_SPEED);
+			moveMainLift(MAIN_LIFT_DOWN_SPEED);
 		}
 		else {
 			moveMainLift(MAIN_LIFT_IDLE_SPEED);
 		}
 
+
 		//SECONDARY LIFT
 
 		if ((vexRT[Btn8U] > 0) && (secArmDegree <= 90)) {
-			moveSecLift(TEST_SPEED);
+			moveSecLift(SEC_LIFT_UP_SPEED);
 		}
 		else if ((vexRT[Btn8U] > 0) && (secArmDegree > 90)) {
-			moveSecLift(-LIFT_DOWN_SPEED);
+			moveSecLift(-SEC_LIFT_DOWN_SPEED);
 		}
 		else if ((vexRT[Btn8D] > 0) && (secArmDegree <= 90)) {
-			moveSecLift(LIFT_DOWN_SPEED);
+			moveSecLift(SEC_LIFT_DOWN_SPEED);
 		}
 		else if ((vexRT[Btn8D] > 0) && (secArmDegree > 90)){
-			moveSecLift(-TEST_SPEED);
+			moveSecLift(-SEC_LIFT_UP_SPEED);
 		}
 		else {
 			if (secArmDegree > 90) {
@@ -103,10 +104,10 @@ task main()
 
 		//CLAW
 		if (vexRT[Btn6U] > 0) {
-			clampClaw(TEST_SPEED);
+			clampClaw(CLAW_CLAMP_SPEED);
 		}
 		else if (vexRT[Btn6D] > 0) {
-			clampClaw(-TEST_SPEED);
+			clampClaw(-CLAW_CLAMP_SPEED);
 		}
 		else {
 			clampClaw(0);
