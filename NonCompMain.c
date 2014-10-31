@@ -7,7 +7,7 @@
 #pragma config(Motor,  port2,           lMainArm,      tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_3, 1000)
 #pragma config(Motor,  port3,           lSecArm,       tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_4, 1000)
 #pragma config(Motor,  port4,           clawPivot,     tmotorVex393, openLoop, reversed)
-#pragma config(Motor,  port7,           claw,          tmotorVex269, openLoop)
+#pragma config(Motor,  port7,           claw,          tmotorVex269, openLoop, reversed)
 #pragma config(Motor,  port8,           rSecArm,       tmotorVex393, openLoop)
 #pragma config(Motor,  port9,           rMainArm,      tmotorVex393, openLoop)
 #pragma config(Motor,  port10,          rDrive,        tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_1, 1000)
@@ -25,6 +25,8 @@ task main()
 	secArmSens = 0;
 	lDriveSens = 0;
 	rDriveSens = 0;
+
+	bool pivotIdle = false;
 
 
 
@@ -143,6 +145,16 @@ task main()
 			clampClaw(0);
 		}
 
+		if (vexRT[Btn7L] > 0) {
+			if (!pivotIdle) {
+				pivotIdle = true;
+			}
+
+			else if (pivotIdle) {
+				pivotIdle = false;
+			}
+		}
+
 		//CLAW PIVOT
 		if (vexRT[Btn8R] > 0) {
 			pivotClaw(CLAW_PIVOT_SPEED);
@@ -151,7 +163,12 @@ task main()
 			pivotClaw(-CLAW_PIVOT_SPEED);
 		}
 		else {
-			pivotClaw(0);
+			if (pivotIdle) {
+				pivotClaw(CLAW_PIVOT_IDLE_SPEED);
+			}
+			else {
+				pivotClaw(0);
+			}
 		}
 	}
 
