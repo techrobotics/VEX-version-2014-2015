@@ -43,7 +43,7 @@ task main()
 		//(USE MULTIPLE ROTATIONS)
 		//SUBTRACT WHAT IS NEEDED
 		driveDistance(4 * PI);
-		motor[lDrive] = 0;
+
 
 
 		//LIMIT MAIN ARM SO SLOWER ABOVE 906

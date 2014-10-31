@@ -1,11 +1,24 @@
 
 //ROBOT AUTONOMOUSE MOVEMENT MACROS
 #define driveDistance(inch){ \
-	while (lDriveSens < inch/circumference * 627.2 * 12/18) \
+	while (lDriveSens < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
 	{ \
-		motor[lDrive] = 25; \
+		if (lDriveSens < rDriveSens){ \
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 15; \
+		} \
+		else if (rDriveSens < lDriveSens){ \
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
+		} \
+		else {\
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
+		} \
 	} \
 }
+
+
 
 
 //ROBOT USER-CONTROL MOVEMENT MACROS
@@ -35,8 +48,10 @@
 
 //ENCODER CODE
 
+#define encoderTicksInch(inches, gearRatio) 627.2 * inches/CIRCUMFERENCE * gearRatio
+
 //convert specified degrees and gear ratio into encoder ticks
-#define encoderTicks(degrees, gearRatio) 627.2 * degrees/360 * gearRatio
+#define encoderTicksDeg(degrees, gearRatio) 627.2 * degrees/360 * gearRatio
 
 //derived from isolating degrees from encoderTicks Macro
 //convert specified encoder ticks and gear ratio into degree measurement

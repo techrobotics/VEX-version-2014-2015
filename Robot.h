@@ -10,8 +10,12 @@
 #define CLAW_CLAMP_SPEED 80
 #define CLAW_PIVOT_SPEED 75
 
+#define AUTONOMOUS_DRIVING_SPEED 50
+
 //OTHER CONSTANTS
-#define circumference 4 * PI
+#define CIRCUMFERENCE (4 * PI)
+#define OVERSHOOT_DISTANCE (CIRCUMFERENCE/8)
+
 
 //ENCODER MACROS
 #define mainArmSens nMotorEncoder[lMainArm]
