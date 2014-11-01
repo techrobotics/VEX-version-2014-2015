@@ -44,8 +44,8 @@ task main()
 		//AMOUNT OF EXTRA PER ROTATION
 		//(USE MULTIPLE ROTATIONS)
 		//SUBTRACT WHAT IS NEEDED
-		//driveDistance(4 * PI);
-		//motor[lDrive] = 0;
+		driveDistance(4 * PI);
+
 
 
 		//LIMIT MAIN ARM SO SLOWER ABOVE 906
