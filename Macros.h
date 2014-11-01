@@ -37,6 +37,10 @@
 #define moveMainLift(speed) { \
 	motor[lMainArm] = speed; \
 	motor[rMainArm] = speed; \
+	if (mainArmDegree >= 140) { \
+		motor[lMainArm] = MAIN_LIFT_IDLE_SPEED; \
+		motor[rMainArm] = MAIN_LIFT_IDLE_SPEED; \
+	} \
 }
 
 #define moveSecLift(speed) { \
