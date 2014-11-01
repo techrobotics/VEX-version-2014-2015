@@ -28,8 +28,7 @@ task main()
 
 	bool pivotIdle = false;
 
-
-
+	//rightDrive((CIRCUMFERENCE));
 
 
 
@@ -44,7 +43,7 @@ task main()
 		//AMOUNT OF EXTRA PER ROTATION
 		//(USE MULTIPLE ROTATIONS)
 		//SUBTRACT WHAT IS NEEDED
-		driveDistance(4 * PI);
+		//driveDistance(4 * PI);
 
 
 
@@ -75,7 +74,7 @@ task main()
 			}
 		}
 
-		else if (secArmDegree > 85) {
+		else if (secArmDegree > 95) {
 			if (vexRT[Btn8U] > 0) {
 				moveSecLift(-SEC_LIFT_DOWN_SPEED);
 			}

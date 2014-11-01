@@ -18,6 +18,13 @@
 	} \
 }
 
+#define rightDrive(inch){ \
+	while (rDriveSens < encoderTicksInch(inch, 12/18) - OVERSHOOT_DISTANCE - 20) \
+	{ \
+		motor[rDrive] = 45; \
+	} \
+}
+
 
 
 
@@ -59,7 +66,7 @@
 
 
 //to get degree of arms
-#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) -45)
+#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 53)
 
 #define mainArmDegree (encoderDegrees(mainArmSens, 60/12) + 30)
 #define secArmDegree 90 + mainArmDegree - (-rawSecArmDegree)
