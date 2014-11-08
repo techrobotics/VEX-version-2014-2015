@@ -21,6 +21,7 @@
 	motor[rSecArm] = speed; \
 }
 
+
 #define clampClaw(speed) { \
 	motor[claw] = speed; \
 }
