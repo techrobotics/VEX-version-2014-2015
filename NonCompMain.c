@@ -120,7 +120,7 @@ task main()
 		}
 		else {
 			if (hasCube) {
-				moveSecLift(SEC_LIFT_IDLE_SPEED);
+				moveSecLift(0);
 			}
 			else {
 				moveSecLift(0);
