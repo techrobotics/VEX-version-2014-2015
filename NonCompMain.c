@@ -58,6 +58,11 @@ task main()
 			}
 		}
 
+		//MOVES TO READY POSITION
+		if (vexRT[Btn5U] > 0) {
+			cubeReadyPos();
+		}
+
 
 
 		//LIMIT MAIN ARM SO SLOWER ABOVE 90

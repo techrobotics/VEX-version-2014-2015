@@ -1,5 +1,4 @@
 task autonomous() {
-	int case = 1;
+	int mode = 1;
 
 }
-
