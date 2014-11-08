@@ -1,5 +1,5 @@
 
-//ROBOT AUTONOMOUSE MOVEMENT MACROS
+//ROBOT AUTONOMOUS MOVEMENT MACROS
 #define driveDistance(inch){ \
 	while (lDriveSens < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
 	{ \
@@ -34,6 +34,19 @@
 	motor[rDrive] = right; \
 }
 
+#define cubeReadyPos() { \
+  while (secArmDegree > -90 && mainArmDegree < 105) { \
+  	moveMainLift(MAIN_LIFT_UP_SPEED); \
+  	moveSecLift(SEC_LIFT_DOWN_SPEED); \
+  	if (secArmDegree = -90) { \
+  		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+  	} \
+  	if (mainArmDegree < 105) { \
+  		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+  	} \
+  } \
+} \
+
 #define moveMainLift(speed) { \
 	motor[lMainArm] = speed; \
 	motor[rMainArm] = speed; \
@@ -56,6 +69,31 @@
 	motor[clawPivot] = speed; \
 }
 
+//AUTONOMOUS MACRO CODE
+
+#define moveSecTo(degree) { \
+	if(secArmDegree > degree) { \
+		while(secArmDegree > degree) { \
+			moveSecArm(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else if(secArmDegree < degree) { \
+		while(secArmDegree < degree) { \
+			moveSecArm(SEC_LIFT_UP_SPEED); \
+		} \
+	} \
+}
+
+#define moveMainTo(degree) { \
+	if(mainArmDegree > degree) { \
+		while(mainArmDegree > degree) { \
+			moveMainArm(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else if(mainArmDegree < degree) { \
+		while(mainArmDegree < degree) { \
+			moveMainArm(MAIN_LIFT_UP_SPEED); \
+		} \
+	} \
+}
 
 //ENCODER CODE
 
