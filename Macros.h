@@ -34,6 +34,19 @@
 	motor[rDrive] = right; \
 }
 
+#define cubeReadyPos() { \
+  while (secArmDegree > -90 && mainArmDegree < 105) { \
+  	moveMainLift(MAIN_LIFT_UP_SPEED); \
+  	moveSecLift(SEC_LIFT_DOWN_SPEED); \
+  	if (secArmDegree = -90) { \
+  		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+  	} \
+  	if (mainArmDegree < 105) { \
+  		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+  	} \
+  } \
+} \
+
 #define moveMainLift(speed) { \
 	motor[lMainArm] = speed; \
 	motor[rMainArm] = speed; \
@@ -97,5 +110,5 @@
 //to get degree of arms
 #define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 53)
 
-#define mainArmDegree (encoderDegrees(mainArmSens, 60/12) + 30)
+#define mainArmDegree (encoderDegrees(mainArmSens, 84/12) + 30)
 #define secArmDegree 90 + mainArmDegree - (-rawSecArmDegree)
