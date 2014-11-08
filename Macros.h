@@ -1,5 +1,5 @@
 
-//ROBOT AUTONOMOUSE MOVEMENT MACROS
+//ROBOT AUTONOMOUS MOVEMENT MACROS
 #define driveDistance(inch){ \
 	while (lDriveSens < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
 	{ \
@@ -56,6 +56,31 @@
 	motor[clawPivot] = speed; \
 }
 
+//AUTONOMOUS MACRO CODE
+
+#define moveSecTo(degree) { \
+	if(secArmDegree > degree) { \
+		while(secArmDegree > degree) { \
+			moveSecArm(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else if(secArmDegree < degree) { \
+		while(secArmDegree < degree) { \
+			moveSecArm(SEC_LIFT_UP_SPEED); \
+		} \
+	} \
+}
+
+#define moveMainTo(degree) { \
+	if(mainArmDegree > degree) { \
+		while(mainArmDegree > degree) { \
+			moveMainArm(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else if(mainArmDegree < degree) { \
+		while(mainArmDegree < degree) { \
+			moveMainArm(MAIN_LIFT_UP_SPEED); \
+		} \
+	} \
+}
 
 //ENCODER CODE
 
