@@ -1,5 +1,5 @@
 
-//ROBOT AUTONOMOUSE MOVEMENT MACROS
+//ROBOT AUTONOMOUS MOVEMENT MACROS
 #define driveDistance(inch){ \
 	while (lDriveSens < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
 	{ \
@@ -15,6 +15,13 @@
 			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
 			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
 		} \
+	} \
+}
+
+#define rightDrive(inch){ \
+	while (rDriveSens < encoderTicksInch(inch, 12/18) - OVERSHOOT_DISTANCE - 20) \
+	{ \
+		motor[rDrive] = 45; \
 	} \
 }
 
@@ -62,6 +69,31 @@
 	motor[clawPivot] = speed; \
 }
 
+//AUTONOMOUS MACRO CODE
+
+#define moveSecTo(degree) { \
+	if(secArmDegree > degree) { \
+		while(secArmDegree > degree) { \
+			moveSecArm(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else if(secArmDegree < degree) { \
+		while(secArmDegree < degree) { \
+			moveSecArm(SEC_LIFT_UP_SPEED); \
+		} \
+	} \
+}
+
+#define moveMainTo(degree) { \
+	if(mainArmDegree > degree) { \
+		while(mainArmDegree > degree) { \
+			moveMainArm(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else if(mainArmDegree < degree) { \
+		while(mainArmDegree < degree) { \
+			moveMainArm(MAIN_LIFT_UP_SPEED); \
+		} \
+	} \
+}
 
 //ENCODER CODE
 
@@ -76,7 +108,7 @@
 
 
 //to get degree of arms
-#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) -45)
+#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 53)
 
 #define mainArmDegree (encoderDegrees(mainArmSens, 60/12) + 30)
 #define secArmDegree 90 + mainArmDegree - (-rawSecArmDegree)

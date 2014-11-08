@@ -26,10 +26,10 @@ task main()
 	lDriveSens = 0;
 	rDriveSens = 0;
 
-	bool pivotIdle = false;
+	bool hasCube = false;
+	bool canPress = true;
 
-
-
+	//rightDrive((CIRCUMFERENCE));
 
 
 
@@ -40,15 +40,27 @@ task main()
 		drive(vexRT[Ch3], vexRT[Ch2]);
 
 
-		//TEST:
-		//AMOUNT OF EXTRA PER ROTATION
-		//(USE MULTIPLE ROTATIONS)
-		//SUBTRACT WHAT IS NEEDED
-		driveDistance(4 * PI);
+		//USED TO MAKE SURE BUTTON IS RELEASED BEFORE PRESSING AGAIN
+		if (vexRT[Btn7L] == 0) {
+			canPress = true;
+		}
+
+		//TOGGLE BETWEEN CUBE AND NO CUBE
+		if (vexRT[Btn7L] > 0) {
+			if (!hasCube && canPress) {
+				hasCube = true;
+				canPress = false;
+			}
+
+			else if (hasCube && canPress) {
+				hasCube = false;
+				canPress = false;
+			}
+		}
 
 
 
-		//LIMIT MAIN ARM SO SLOWER ABOVE 906
+		//LIMIT MAIN ARM SO SLOWER ABOVE 90
 
 		//MAIN LIFT
 		if (vexRT[Btn7U] > 0 && mainArmDegree < 140) {
@@ -58,7 +70,12 @@ task main()
 			moveMainLift(MAIN_LIFT_DOWN_SPEED);
 		}
 		else {
-			moveMainLift(MAIN_LIFT_IDLE_SPEED);
+			if (hasCube) {
+				moveMainLift(MAIN_LIFT_CUBE_IDLE);
+			}
+			else {
+				moveMainLift(MAIN_LIFT_IDLE_SPEED);
+			}
 		}
 
 
@@ -71,11 +88,16 @@ task main()
 				moveSecLift(SEC_LIFT_DOWN_SPEED);
 			}
 			else {
-				moveSecLift(SEC_LIFT_IDLE_SPEED);
+				if (hasCube) {
+					moveSecLift(SEC_LIFT_CUBE_IDLE);
+				}
+				else {
+					moveSecLift(SEC_LIFT_IDLE_SPEED);
+				}
 			}
 		}
 
-		else if (secArmDegree > 85) {
+		else if (secArmDegree > 95) {
 			if (vexRT[Btn8U] > 0) {
 				moveSecLift(-SEC_LIFT_DOWN_SPEED);
 			}
@@ -83,42 +105,25 @@ task main()
 				moveSecLift(-SEC_LIFT_UP_SPEED);
 			}
 			else {
-				moveSecLift(-SEC_LIFT_IDLE_SPEED);
+				if (hasCube) {
+					moveSecLift(-SEC_LIFT_CUBE_IDLE);
+				}
+				else {
+					moveSecLift(-SEC_LIFT_IDLE_SPEED);
+				}
 			}
 		}
 		else {
-			moveSecLift(0);
+			if (hasCube) {
+				moveSecLift(SEC_LIFT_IDLE_SPEED);
+			}
+			else {
+				moveSecLift(0);
+			}
 		}
 
 
-		/* if (vexRT[Btn8U] > 0) {
-		if (secArmDegree <= 90){
-		moveSecLift(SEC_LIFT_DOWN_SPEED);
-		}
-		}
-		else if (vexRT[Btn8U] > 0) && {secArmDegree > 90)) {
-		moveSecLift(-SEC_LIFT_DOWN_SPEED);
-		}
-		else if ((vexRT[Btn8D] > 0) && (secArmDegree <= 90)) {
-		moveSecLift(SEC_LIFT_DOWN_SPEED);
-		}
-		else if ((vexRT[Btn8D] > 0) && (secArmDegree > 90)){
-		moveSecLift(-SEC_LIFT_UP_SPEED);
-		}
-		else {
-		if (secArmDegree > 90) {
-		moveSecLift(-SEC_LIFT_IDLE_SPEED);
-		}
-		else if (secArmDegree < 90) {
-		moveSecLift(SEC_LIFT_IDLE_SPEED);
-		}
-		else {
-		moveSecLift(0);
 
-		}
-		}
-
-		*/
 		//OLD SEC_LIFT FOR BACKUP
 
 		/*
@@ -145,15 +150,7 @@ task main()
 			clampClaw(0);
 		}
 
-		if (vexRT[Btn7L] > 0) {
-			if (!pivotIdle) {
-				pivotIdle = true;
-			}
 
-			else if (pivotIdle) {
-				pivotIdle = false;
-			}
-		}
 
 		//CLAW PIVOT
 		if (vexRT[Btn8R] > 0) {
@@ -163,7 +160,7 @@ task main()
 			pivotClaw(-CLAW_PIVOT_SPEED);
 		}
 		else {
-			if (pivotIdle) {
+			if (hasCube) {
 				pivotClaw(CLAW_PIVOT_IDLE_SPEED);
 			}
 			else {
