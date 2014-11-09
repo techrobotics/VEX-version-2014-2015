@@ -24,4 +24,3 @@ mode 5 mlg 360 euphoric quicknoscopes 420BLAZEIT doritos locos mountain dew the 
 		//NO STRATEGY YET
 	}
 }
-
