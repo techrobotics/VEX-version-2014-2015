@@ -15,7 +15,7 @@
 
 #include "Robot.h"
 #include "Macros.h"
-#include "Autonomous.c"
+//#include "Autonomous.c"
 #include "UserControl.c"
 
 task main()
