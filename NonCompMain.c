@@ -15,7 +15,7 @@
 
 #include "Robot.h"
 #include "Macros.h"
-//#include "Autonomous.c"
+#include "Autonomous.c"
 #include "UserControl.c"
 
 task main()
@@ -29,150 +29,36 @@ task main()
 	bool hasCube = false;
 	bool canPress = true;
 
+
+	//AUTONOMOUS
+
 	//rightDrive((CIRCUMFERENCE));
 
+	/*
+	mode 1 forward grab backwards score (1 point)
+	mode 2 Scores two cubes in (2 points)
+	mode 3 Scores cube into low goal (3 points)
+	mode 4 Puts skyrise into the hole (4 points)
+	mode 5 mlg 360 euphoric quicknoscopes 420BLAZEIT doritos locos mountain dew the cube into the opponent's goal (9001 points)
+	*/
+	int mode = 1;
 
+	if(mode == 1) {
+		//move secondary to
+		moveSecTo(0);
 
-	//USER CONTROL
+		pivotClaw(CLAW_PIVOT_SPEED);
+		//wait1MSec(WE DO NOT KNOW);
+		pivotClaw(0);
 
-	while (true)
-	{
-		drive(vexRT[Ch3], vexRT[Ch2]);
+		//driveDistance(WE DO NOT KNOW);
 
-
-		//USED TO MAKE SURE BUTTON IS RELEASED BEFORE PRESSING AGAIN
-		if (vexRT[Btn7L] == 0) {
-			canPress = true;
-		}
-
-		//TOGGLE BETWEEN CUBE AND NO CUBE
-		if (vexRT[Btn7L] > 0) {
-			if (!hasCube && canPress) {
-				hasCube = true;
-				canPress = false;
-			}
-
-			else if (hasCube && canPress) {
-				hasCube = false;
-				canPress = false;
-			}
-		}
-
-		//MOVES TO READY POSITION
-		if (vexRT[Btn5U] > 0) {
-			cubeReadyPos();
-		}
-
-
-
-		//LIMIT MAIN ARM SO SLOWER ABOVE 90
-
-		//MAIN LIFT
-		if (vexRT[Btn7U] > 0 && mainArmDegree < 140) {
-			moveMainLift(MAIN_LIFT_UP_SPEED);
-		}
-		else if (vexRT[Btn7D] > 0) {
-			moveMainLift(MAIN_LIFT_DOWN_SPEED);
-		}
-		else {
-			if (hasCube) {
-				moveMainLift(MAIN_LIFT_CUBE_IDLE);
-			}
-			else {
-				moveMainLift(MAIN_LIFT_IDLE_SPEED);
-			}
-		}
-
-
-		//SECONDARY LIFT
-		if (secArmDegree <= 85) {
-			if (vexRT[Btn8U] > 0 ) {
-				moveSecLift(SEC_LIFT_UP_SPEED);
-			}
-			else if (vexRT[Btn8D] > 0) {
-				moveSecLift(SEC_LIFT_DOWN_SPEED);
-			}
-			else {
-				if (hasCube) {
-					moveSecLift(SEC_LIFT_CUBE_IDLE);
-				}
-				else {
-					moveSecLift(SEC_LIFT_IDLE_SPEED);
-				}
-			}
-		}
-
-		else if (secArmDegree > 95) {
-			if (vexRT[Btn8U] > 0) {
-				moveSecLift(-SEC_LIFT_DOWN_SPEED);
-			}
-			else if (vexRT[Btn8D] > 0) {
-				moveSecLift(-SEC_LIFT_UP_SPEED);
-			}
-			else {
-				if (hasCube) {
-					moveSecLift(-SEC_LIFT_CUBE_IDLE);
-				}
-				else {
-					moveSecLift(-SEC_LIFT_IDLE_SPEED);
-				}
-			}
-		}
-		else {
-			if (hasCube) {
-				moveSecLift(0);
-			}
-			else {
-				moveSecLift(0);
-			}
-		}
-
-
-
-		//OLD SEC_LIFT FOR BACKUP
-
-		/*
-		if (vexRT[Btn8U] > 0) {
-		moveSecLift(TEST_SPEED);
-		}
-		else if (vexRT[Btn8D] > 0) {
-		moveSecLift(LIFT_DOWN_SPEED);
-		}
-		else {
-		moveSecLift(SEC_LIFT_IDLE_SPEED);
-		}
-		*/
-
-
-		//CLAW
-		if (vexRT[Btn6U] > 0) {
-			clampClaw(CLAW_CLAMP_SPEED);
-		}
-		else if (vexRT[Btn6D] > 0) {
-			clampClaw(-CLAW_CLAMP_SPEED);
-		}
-		else {
-			clampClaw(0);
-		}
-
-
-
-		//CLAW PIVOT
-		if (vexRT[Btn8R] > 0) {
-			pivotClaw(CLAW_PIVOT_SPEED);
-		}
-		else if (vexRT[Btn8L] > 0) {
-			pivotClaw(-CLAW_PIVOT_SPEED);
-		}
-		else {
-			if (hasCube) {
-				pivotClaw(CLAW_PIVOT_IDLE_SPEED);
-			}
-			else {
-				pivotClaw(0);
-			}
-		}
+		//driveDistance(-WE DO NOT KNOW);
 	}
+	else if(mode == 2){
+		//NO STRATEGY YET
+	}
+
 
 
 }

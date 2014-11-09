@@ -18,12 +18,42 @@
 	} \
 }
 
+
+//FOR TESTING RIGHT WHEELS
 #define rightDrive(inch){ \
 	while (rDriveSens < encoderTicksInch(inch, 12/18) - OVERSHOOT_DISTANCE - 20) \
 	{ \
 		motor[rDrive] = 45; \
 	} \
 }
+
+
+
+#define moveMainTo(degree) { \
+	if(mainArmDegree > degree) { \
+		while(mainArmDegree > degree) { \
+			moveMainLift(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else if(mainArmDegree < degree) { \
+		while(mainArmDegree < degree) { \
+			moveMainLift(MAIN_LIFT_UP_SPEED); \
+		} \
+	} \
+}
+
+#define moveSecTo(degree) { \
+	if(secArmDegree > degree) { \
+		while(secArmDegree > degree) { \
+			moveSecLift(SEC_LIFT_DOWN_SPEED); \
+		} \
+	} \
+	else if(secArmDegree < degree) { \
+		while(secArmDegree < degree) { \
+			moveSecLift(SEC_LIFT_UP_SPEED); \
+		} \
+	} \
+}
+
 
 
 
@@ -73,31 +103,7 @@
 	motor[clawPivot] = speed; \
 }
 
-//AUTONOMOUS MACRO CODE
 
-#define moveSecTo(degree) { \
-	if(secArmDegree > degree) { \
-		while(secArmDegree > degree) { \
-			moveSecArm(SEC_LIFT_DOWN_SPEED); \
-	} \
-	else if(secArmDegree < degree) { \
-		while(secArmDegree < degree) { \
-			moveSecArm(SEC_LIFT_UP_SPEED); \
-		} \
-	} \
-}
-
-#define moveMainTo(degree) { \
-	if(mainArmDegree > degree) { \
-		while(mainArmDegree > degree) { \
-			moveMainArm(MAIN_LIFT_DOWN_SPEED); \
-	} \
-	else if(mainArmDegree < degree) { \
-		while(mainArmDegree < degree) { \
-			moveMainArm(MAIN_LIFT_UP_SPEED); \
-		} \
-	} \
-}
 
 //ENCODER CODE
 
