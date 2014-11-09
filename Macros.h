@@ -33,6 +33,7 @@
 	if(mainArmDegree > degree) { \
 		while(mainArmDegree > degree) { \
 			moveMainLift(MAIN_LIFT_DOWN_SPEED); \
+		} \
 	} \
 	else if(mainArmDegree < degree) { \
 		while(mainArmDegree < degree) { \
@@ -64,29 +65,21 @@
 	motor[rDrive] = right; \
 }
 
-#define cubeReadyPos() { \
-  if (secArmDegree > -90 || mainArmDegree < 105) { \
-  	moveMainLift(MAIN_LIFT_UP_SPEED); \
-  	moveSecLift(SEC_LIFT_DOWN_SPEED); \
-  	if (secArmDegree <= -90) { \
-  		moveSecLift(SEC_LIFT_IDLE_SPEED); \
-  	} \
-    if (mainArmDegree >= 105) { \
-  		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
-  	} \
-  } \
-  else { \
-  	moveSecLift(SEC_LIFT_IDLE_SPEED); \
-  	moveMainLift(MAIN_LIFT_IDLE_SPEED); \
-  } \
-}
 
-#define moveMainLift(speed) { \
-	motor[lMainArm] = speed; \
-	motor[rMainArm] = speed; \
-	if (mainArmDegree >= 140) { \
-		motor[lMainArm] = MAIN_LIFT_IDLE_SPEED; \
-		motor[rMainArm] = MAIN_LIFT_IDLE_SPEED; \
+#define cubeReadyPos() { \
+	if (secArmDegree > -90 || mainArmDegree < 105) { \
+		if (secArmDegree <= -90) { \
+			moveSecLift(SEC_LIFT_IDLE_SPEED); \
+		} \
+		else { \
+			moveSecLift(SEC_LIFT_DOWN_SPEED); \
+		} \
+		if (mainArmDegree >= 105) { \
+			moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+		} \
+		else { \
+			moveMainLift(MAIN_LIFT_UP_SPEED); \
+		} \
 	} \
 }
 
