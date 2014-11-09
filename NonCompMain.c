@@ -15,7 +15,7 @@
 
 #include "Robot.h"
 #include "Macros.h"
-//#include "Autonomous.c"
+#include "Autonomous.c"
 #include "UserControl.c"
 
 task main()
@@ -28,8 +28,6 @@ task main()
 
 	bool hasCube = false;
 	bool canPress = true;
-
-	//rightDrive((CIRCUMFERENCE));
 
 
 
@@ -58,14 +56,14 @@ task main()
 			}
 		}
 
-		//MOVES TO READY POSITION
+
+		//MOVES TO READY TO GRAB CUBE POSITION
 		if (vexRT[Btn5U] > 0) {
 			cubeReadyPos();
 		}
 
 
 
-		//LIMIT MAIN ARM SO SLOWER ABOVE 90
 
 		//MAIN LIFT
 		if (vexRT[Btn7U] > 0 && mainArmDegree < 140) {
@@ -118,6 +116,7 @@ task main()
 				}
 			}
 		}
+
 		else {
 			if (hasCube) {
 				moveSecLift(0);
@@ -127,21 +126,6 @@ task main()
 			}
 		}
 
-
-
-		//OLD SEC_LIFT FOR BACKUP
-
-		/*
-		if (vexRT[Btn8U] > 0) {
-		moveSecLift(TEST_SPEED);
-		}
-		else if (vexRT[Btn8D] > 0) {
-		moveSecLift(LIFT_DOWN_SPEED);
-		}
-		else {
-		moveSecLift(SEC_LIFT_IDLE_SPEED);
-		}
-		*/
 
 
 		//CLAW

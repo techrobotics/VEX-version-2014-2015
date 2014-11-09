@@ -1,32 +1,4 @@
 
-//ROBOT AUTONOMOUS MOVEMENT MACROS
-#define driveDistance(inch){ \
-	while (lDriveSens < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
-	{ \
-		if (lDriveSens < rDriveSens){ \
-			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 15; \
-		} \
-		else if (rDriveSens < lDriveSens){ \
-			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
-		} \
-		else {\
-			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
-		} \
-	} \
-}
-
-#define rightDrive(inch){ \
-	while (rDriveSens < encoderTicksInch(inch, 12/18) - OVERSHOOT_DISTANCE - 20) \
-	{ \
-		motor[rDrive] = 45; \
-	} \
-}
-
-
-
 
 //ROBOT USER-CONTROL MOVEMENT MACROS
 #define drive(left, right) { \
@@ -36,18 +8,18 @@
 
 #define cubeReadyPos() { \
   if (secArmDegree > -90 || mainArmDegree < 105) { \
-  	moveMainLift(MAIN_LIFT_UP_SPEED); \
-  	moveSecLift(SEC_LIFT_DOWN_SPEED); \
   	if (secArmDegree <= -90) { \
   		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+  	} \
+  	else { \
+  		moveSecLift(SEC_LIFT_DOWN_SPEED); \
   	} \
     if (mainArmDegree >= 105) { \
   		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
   	} \
-  } \
-  else { \
-  	moveSecLift(SEC_LIFT_IDLE_SPEED); \
-  	moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+  	else { \
+	  	moveMainLift(MAIN_LIFT_UP_SPEED); \
+	  } \
   } \
 }
 
@@ -73,31 +45,6 @@
 	motor[clawPivot] = speed; \
 }
 
-//AUTONOMOUS MACRO CODE
-
-#define moveSecTo(degree) { \
-	if(secArmDegree > degree) { \
-		while(secArmDegree > degree) { \
-			moveSecArm(SEC_LIFT_DOWN_SPEED); \
-	} \
-	else if(secArmDegree < degree) { \
-		while(secArmDegree < degree) { \
-			moveSecArm(SEC_LIFT_UP_SPEED); \
-		} \
-	} \
-}
-
-#define moveMainTo(degree) { \
-	if(mainArmDegree > degree) { \
-		while(mainArmDegree > degree) { \
-			moveMainArm(MAIN_LIFT_DOWN_SPEED); \
-	} \
-	else if(mainArmDegree < degree) { \
-		while(mainArmDegree < degree) { \
-			moveMainArm(MAIN_LIFT_UP_SPEED); \
-		} \
-	} \
-}
 
 //ENCODER CODE
 
