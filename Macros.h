@@ -8,18 +8,18 @@
 
 #define cubeReadyPos() { \
   if (secArmDegree > -90 || mainArmDegree < 105) { \
-  	moveMainLift(MAIN_LIFT_UP_SPEED); \
-  	moveSecLift(SEC_LIFT_DOWN_SPEED); \
-  	if (secArmdDgree <= -90) { \
+  	if (secArmDegree <= -90) { \
   		moveSecLift(SEC_LIFT_IDLE_SPEED); \
   	} \
-  	if (mainArmDegree >= 105) { \
+  	else { \
+  		moveSecLift(SEC_LIFT_DOWN_SPEED); \
+  	} \
+    if (mainArmDegree >= 105) { \
   		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
   	} \
-  } \
-  else { \
-  	moveSecLift(SEC_LIFT_IDLE_SPEED); \
-  	moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+  	else { \
+	  	moveMainLift(MAIN_LIFT_UP_SPEED); \
+	  } \
   } \
 }
 
