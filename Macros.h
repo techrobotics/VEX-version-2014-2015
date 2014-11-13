@@ -3,7 +3,7 @@
 //ROBOT USER-CONTROL MOVEMENT MACROS
 
 #define accelerate(port, final) { \
-	motor[port] += safeSet((final-motor[port])/ACCEL_RATE); \
+	motor[port] += safeSet((final-motor[port])/ACCEL_CONSTANT); \
 }
 
 
@@ -32,8 +32,14 @@
 
 
 #define moveMainLift(speed) { \
-	motor[lMainArm] = speed; \
-	motor[rMainArm] = speed; \
+	if (speed == MAIN_LIFT_UP_SPEED) { \
+		accelerate(lMainArm, speed); \
+		accelerate(rMainArm, speed); \
+	} \
+	else { \
+		motor[lMainArm] = speed; \
+		motor[rMainArm] = speed; \
+	} \
 }
 
 #define moveSecLift(speed) { \
