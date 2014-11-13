@@ -23,6 +23,16 @@
   } \
 }
 
+#define acceleration(startSpeed, endSpeed, increments) { \
+	while (startSpeed < endSpeed) \
+	{ \
+		startSpeed = startSpeed + 1; \
+		motor[lMainArm] = startSpeed; \
+		motor[rMainArm] = startSpeed; \
+		wait1MSec(increments); \
+} \
+} \
+
 #define moveMainLift(speed) { \
 	motor[lMainArm] = speed; \
 	motor[rMainArm] = speed; \
