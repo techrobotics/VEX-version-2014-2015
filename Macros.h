@@ -1,6 +1,12 @@
 
 
 //ROBOT USER-CONTROL MOVEMENT MACROS
+
+#define accelerate(port, final) { \
+	motor[port] += safeSet((final-motor[port])/ACCEL_RATE); \
+}
+
+
 #define drive(left, right) { \
 	motor[lDrive] = left; \
 	motor[rDrive] = right; \
@@ -23,15 +29,7 @@
   } \
 }
 
-#define acceleration(startSpeed, endSpeed, increments) { \
-	while (startSpeed < endSpeed) \
-	{ \
-		startSpeed = startSpeed + 1; \
-		motor[lMainArm] = startSpeed; \
-		motor[rMainArm] = startSpeed; \
-		wait1MSec(increments); \
-} \
-} \
+
 
 #define moveMainLift(speed) { \
 	motor[lMainArm] = speed; \
@@ -50,6 +48,14 @@
 #define pivotClaw(speed) { \
 	motor[clawPivot] = speed; \
 }
+
+
+// Useful things
+//#define abs(x) ((x > 0) ? (x) : -(x))
+#define min(x,y) ((x > y) ? (y) : (x))
+#define max(x,y) ((x > y) ? (x) : (y))
+#define safeSet(power) (max(-MAX_POWER, min(MAX_POWER, power)))
+
 
 
 //ENCODER CODE
