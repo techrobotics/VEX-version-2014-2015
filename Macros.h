@@ -83,6 +83,11 @@
 	} \
 }
 
+#define moveMainLift(speed) { \
+	motor[lMainArm] = speed; \
+	motor[rMainArm] = speed; \
+}
+
 #define moveSecLift(speed) { \
 	motor[lSecArm] = speed; \
 	motor[rSecArm] = speed; \
