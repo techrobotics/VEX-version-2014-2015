@@ -7,7 +7,7 @@
 #pragma config(Motor,  port2,           lMainArm,      tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_3, 1000)
 #pragma config(Motor,  port3,           lSecArm,       tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_4, 1000)
 #pragma config(Motor,  port4,           lClawPivot,    tmotorVex393, openLoop, reversed)
-#pragma config(Motor,  port6,           claw,          tmotorVex269, openLoop)
+#pragma config(Motor,  port6,           claw,          tmotorVex269, openLoop, reversed)
 #pragma config(Motor,  port7,           rClawPivot,    tmotorVex393, openLoop)
 #pragma config(Motor,  port8,           rSecArm,       tmotorVex393, openLoop)
 #pragma config(Motor,  port9,           rMainArm,      tmotorVex393, openLoop)
