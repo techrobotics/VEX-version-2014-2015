@@ -29,6 +29,11 @@ task main()
 	bool hasCube = false;
 	bool canPress = true;
 
+	//Used to compensate autonomous encoders
+	int curRightDrive = 0;
+	int curLeftDrive = 0;
+
+
 
 	//AUTONOMOUS
 

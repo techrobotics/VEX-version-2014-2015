@@ -1,13 +1,15 @@
 
 //ROBOT AUTONOMOUS MOVEMENT MACROS
 #define driveDistance(inch){ \
-	while (lDriveSens < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
+	curLeftDrive = lDriveSens; \
+	curRightDrive = rDriveSens; \
+	while (lDriveSens - curLeftDrive < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
 	{ \
-		if (lDriveSens < rDriveSens){ \
+		if (lDriveSens - curLeftDrive < rDriveSens - curRightDrive){ \
 			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
 			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 15; \
 		} \
-		else if (rDriveSens < lDriveSens){ \
+		else if (rDriveSens - curRightDrive < lDriveSens - curLeftDrive){ \
 			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
 			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
 		} \
@@ -24,6 +26,47 @@
 	while (rDriveSens < encoderTicksInch(inch, 12/18) - OVERSHOOT_DISTANCE - 20) \
 	{ \
 		motor[rDrive] = 45; \
+	} \
+}
+
+
+#define turnRightDeg(degree){ \
+	curLeftDrive = lDriveSens; \
+	curRightDrive = rDriveSens; \
+	int arcR = (degree * PI * DIAMETER) / 360; \
+	while ( (lDriveSens - curLeftDrive <= encoderTicksInch(arcR, 12/18)) || (rDriveSens - curRightDrive >= encoderTicksInch(-arcR, 12/18)) ) { \
+		if (lDriveSens - curLeftDrive <= encoderTicksInch(arcR, 12/18)) { \
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+		} \
+		else { \
+			motor[lDrive] = 0; \
+		} \
+		if (rDriveSens - curRightDrive >= encoderTicksInch(-arcR, 12/18)) { \
+			motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+		} \
+		else { \
+			motor[rDrive] = 0; \
+		} \
+	} \
+}
+
+#define turnLeftDeg(degree){ \
+	curLeftDrive = lDriveSens; \
+	curRightDrive = rDriveSens; \
+	int arcL = (degree * PI * DIAMETER) / 360; \
+	while ( (lDriveSens - curLeftDrive >= encoderTicksInch(-arcL, 12/18)) || (rDriveSens - curRightDrive <= encoderTicksInch(arcL, 12/18)) ) { \
+		if (lDriveSens - curLeftDrive >= encoderTicksInch(-arcL, 12/18)) { \
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+		} \
+		else { \
+			motor[lDrive] = 0; \
+		} \
+		if (rDriveSens - curRightDrive <= encoderTicksInch(arcL, 12/18)) { \
+			motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+		} \
+		else { \
+			motor[rDrive] = 0; \
+		} \
 	} \
 }
 
