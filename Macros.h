@@ -52,7 +52,8 @@
 }
 
 #define pivotClaw(speed) { \
-	motor[clawPivot] = speed; \
+	motor[lClawPivot] = speed; \
+	motor[rClawPivot] = speed; \
 }
 
 
