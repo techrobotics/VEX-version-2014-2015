@@ -13,7 +13,7 @@
 }
 
 #define cubeReadyPos() { \
-  if (secArmDegree > -90 || mainArmDegree < 105) { \
+  if (secArmDegree > -90 || mainArmDegree < 115) { \
   	if (secArmDegree <= -90) { \
   		moveSecLift(SEC_LIFT_IDLE_SPEED); \
   	} \
