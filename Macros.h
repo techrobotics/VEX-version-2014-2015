@@ -18,6 +18,8 @@
 			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
 		} \
 	} \
+	motor[lDrive] = 0; \
+	motor[rDrive] = 0; \
 }
 
 
@@ -48,6 +50,8 @@
 			motor[rDrive] = 0; \
 		} \
 	} \
+	motor[lDrive] = 0; \
+	motor[rDrive] = 0; \
 }
 
 #define turnLeftDeg(degree){ \
@@ -68,6 +72,8 @@
 			motor[rDrive] = 0; \
 		} \
 	} \
+	motor[lDrive] = 0; \
+	motor[rDrive] = 0; \
 }
 
 
@@ -83,6 +89,7 @@
 			moveMainLift(MAIN_LIFT_UP_SPEED); \
 		} \
 	} \
+	moveMainLift(0); \
 }
 
 #define moveSecTo(degree) { \
@@ -96,6 +103,7 @@
 			moveSecLift(SEC_LIFT_UP_SPEED); \
 		} \
 	} \
+	moveSecLift(0); \
 }
 
 
