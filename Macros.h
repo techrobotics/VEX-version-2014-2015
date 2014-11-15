@@ -78,7 +78,7 @@
 
 
 //to get degree of arms
-#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 53)
+#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 67)
 
 #define mainArmDegree (encoderDegrees(mainArmSens, 84/12) + 30)
 #define secArmDegree 90 + mainArmDegree - (-rawSecArmDegree)
