@@ -29,6 +29,7 @@ task main()
 
 	bool hasCube = false;
 	bool canPress = true;
+	bool movingToHome = false;
 
 
 
@@ -46,6 +47,7 @@ task main()
 
 		//TOGGLE BETWEEN CUBE AND NO CUBE
 		if (vexRT[Btn7L] > 0) {
+			movingToHome = true;
 			if (!hasCube && canPress) {
 				hasCube = true;
 				canPress = false;
@@ -55,6 +57,9 @@ task main()
 				hasCube = false;
 				canPress = false;
 			}
+		}
+		else {
+			movingToHome = false;
 		}
 
 
@@ -74,11 +79,13 @@ task main()
 			moveMainLift(MAIN_LIFT_DOWN_SPEED);
 		}
 		else {
-			if (hasCube) {
-				moveMainLift(MAIN_LIFT_CUBE_IDLE);
-			}
-			else {
-				moveMainLift(MAIN_LIFT_IDLE_SPEED);
+			if (!movingToHome) {
+				if (hasCube) {
+					moveMainLift(MAIN_LIFT_CUBE_IDLE);
+				}
+				else {
+					moveMainLift(MAIN_LIFT_IDLE_SPEED);
+				}
 			}
 		}
 
@@ -92,11 +99,13 @@ task main()
 				moveSecLift(SEC_LIFT_DOWN_SPEED);
 			}
 			else {
-				if (hasCube) {
-					moveSecLift(SEC_LIFT_CUBE_IDLE);
-				}
-				else {
-					moveSecLift(SEC_LIFT_IDLE_SPEED);
+				if (!movingToHome) {
+					if (hasCube) {
+						moveSecLift(SEC_LIFT_CUBE_IDLE);
+					}
+					else {
+						moveSecLift(SEC_LIFT_IDLE_SPEED);
+					}
 				}
 			}
 		}
@@ -109,21 +118,25 @@ task main()
 				moveSecLift(-SEC_LIFT_UP_SPEED);
 			}
 			else {
-				if (hasCube) {
-					moveSecLift(-SEC_LIFT_CUBE_IDLE);
-				}
-				else {
-					moveSecLift(-SEC_LIFT_IDLE_SPEED);
+				if (!movingToHome) {
+					if (hasCube) {
+						moveSecLift(-SEC_LIFT_CUBE_IDLE);
+					}
+					else {
+						moveSecLift(-SEC_LIFT_IDLE_SPEED);
+					}
 				}
 			}
 		}
 
 		else {
-			if (hasCube) {
-				moveSecLift(0);
-			}
-			else {
-				moveSecLift(0);
+			if (!movingToHome) {
+				if (hasCube) {
+					moveSecLift(0);
+				}
+				else {
+					moveSecLift(0);
+				}
 			}
 		}
 
