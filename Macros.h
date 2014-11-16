@@ -111,6 +111,10 @@
 
 
 //ROBOT USER-CONTROL MOVEMENT MACROS
+#define accelerate(port, final) { \
+	motor[port] += safeSet((final-motor[port])/ACCEL_CONSTANT); \
+}
+
 #define drive(left, right) { \
 	motor[lDrive] = left; \
 	motor[rDrive] = right; \
@@ -118,7 +122,7 @@
 
 
 #define cubeReadyPos() { \
-	if (secArmDegree > -90 || mainArmDegree < 105) { \
+	if (secArmDegree > -90 || mainArmDegree < 115) { \
 		if (secArmDegree <= -90) { \
 			moveSecLift(SEC_LIFT_IDLE_SPEED); \
 		} \
@@ -135,8 +139,14 @@
 }
 
 #define moveMainLift(speed) { \
-	motor[lMainArm] = speed; \
-	motor[rMainArm] = speed; \
+	if (speed == MAIN_LIFT_UP_SPEED) { \
+		accelerate(lMainArm, speed); \
+		accelerate(rMainArm, speed); \
+	} \
+	else { \
+		motor[lMainArm] = speed; \
+		motor[rMainArm] = speed; \
+	} \
 }
 
 #define moveSecLift(speed) { \
@@ -168,7 +178,7 @@
 
 
 //to get degree of arms
-#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 53)
+#define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 67)
 
 #define mainArmDegree (encoderDegrees(mainArmSens, 84/12) + 30)
 #define secArmDegree 90 + mainArmDegree - (-rawSecArmDegree)
