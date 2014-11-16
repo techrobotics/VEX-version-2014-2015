@@ -1,0 +1,26 @@
+Here's what we need to do on 10/23/14:
+
+1. Make sure the main arm angle can be acturrately measured above 90 degrees.
+   We know that below 90 degrees, it's accurate.
+   So do something like "while arm < 150, move up" and see if it actually goes 150 degrees
+
+	-If it's not accurate, figure out how to make it accurate
+
+	-When it's accurate, figure out how to limit the main arm to 160 degrees max
+
+2. While some people figure out how to limit main arm, others test the autonomous.
+   We have code that should go a specified distance in inches.
+
+	-Put in circumference for the distance and see if the wheel moves just one rotation
+ 	   (there's tape on one of the wheels for this)
+
+	-once that's accurate, enter in a distance and see if the robot actually goes that distance
+
+
+That will probably take the entire time.
+
+If we finish testing and writing the main arm limit, here's other stuff we should do:
+
+1. Figure out autonomus turning (http://www.robotc.net/wiki/Tutorials/Arduino_Projects/Mobile_Robotics/VEX/Using_encoders_to_make_turns)
+
+2. Add to the driving straight code so that it always goes straight (Spring should know what this means).
