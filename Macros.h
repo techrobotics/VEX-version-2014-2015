@@ -78,6 +78,10 @@
 
 
 
+
+
+
+
 #define moveMainTo(degree) { \
 	if(mainArmDegree > degree) { \
 		while(mainArmDegree > degree) { \
@@ -118,6 +122,44 @@
 #define drive(left, right) { \
 	motor[lDrive] = left; \
 	motor[rDrive] = right; \
+}
+
+
+#define moveClawPosXY(x, Y) { \
+	int newSecArm = 180 + secArmDegree; \
+	int od = sqrt(pow(y, 2) + pow(x, 2)); \
+	int secGoal = acos( (-pow(od, 2)   + 2 * pow(17.5, 2) ) / (2 * pow(17.5, 2) ) ) ; \
+	int mainGoal = 90 + atan(y/x) +  acos(od / (2 * 17.5) ); \
+	\
+	if (mainArmDegree < mainGoal) { \
+		moveMainLift(MAIN_LIFT_UP_SPEED); \
+	} \
+	else if (mainGoal < mainArmDegree) { \
+		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else { \
+		if (hasCube) { \
+			moveMainLift(MAIN_LIFT_CUBE_IDLE); \
+		} \
+		else { \
+			moveMainLift(MAIN_LIFT_IDLE_SPEED);  \
+		} \
+	} \
+	\
+	if (newSecArm < secGoal) { \
+		moveSecLift(SEC_LIFT_UP_SPEED); \
+	} \
+	else if (secGoal < newSecArm) { \
+		moveSecLift(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else { \
+		if (hasCube) { \
+			moveSecLift(SEC_LIFT_CUBE_IDLE); \
+		} \
+		else { \
+			moveSecLift(SEC_LIFT_IDLE_SPEED); \
+		} \
+	} \
 }
 
 
