@@ -23,14 +23,6 @@
 }
 
 
-//FOR TESTING RIGHT WHEELS
-#define rightDrive(inch){ \
-	while (rDriveSens < encoderTicksInch(inch, 12/18) - OVERSHOOT_DISTANCE - 20) \
-	{ \
-		motor[rDrive] = 45; \
-	} \
-}
-
 
 #define turnRightDeg(degree){ \
 	curLeftDrive = lDriveSens; \
@@ -60,13 +52,13 @@
 	int arcL = (degree * PI * DIAMETER) / 360; \
 	while ( (lDriveSens - curLeftDrive >= encoderTicksInch(-arcL, 12/18)) || (rDriveSens - curRightDrive <= encoderTicksInch(arcL, 12/18)) ) { \
 		if (lDriveSens - curLeftDrive >= encoderTicksInch(-arcL, 12/18)) { \
-			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+			motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
 		} \
 		else { \
 			motor[lDrive] = 0; \
 		} \
 		if (rDriveSens - curRightDrive <= encoderTicksInch(arcL, 12/18)) { \
-			motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED; \
 		} \
 		else { \
 			motor[rDrive] = 0; \
