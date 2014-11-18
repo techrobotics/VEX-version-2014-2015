@@ -51,11 +51,11 @@ task main()
 
 	if(mode == 1) {
 
-		moveToCubeReady();
-		wait1Msec(5000);
 
 
-	//move secondary to
+
+
+		//move secondary to
 		//moveSecTo(0);
 
 		//pivotClaw(CLAW_PIVOT_SPEED);

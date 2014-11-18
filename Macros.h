@@ -3,19 +3,19 @@
 #define driveDistance(inch){ \
 	curLeftDrive = lDriveSens; \
 	curRightDrive = rDriveSens; \
-	while (lDriveSens - curLeftDrive < encoderTicksInch(inch, 12/18) - encoderTicksInch(OVERSHOOT_DISTANCE, 12/18)) \
+	while (lDriveSens - curLeftDrive < encoderTicksInch(inch, 12/18)) \
 	{ \
 		if (lDriveSens - curLeftDrive < rDriveSens - curRightDrive){ \
 			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 15; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
 		} \
 		else if (rDriveSens - curRightDrive < lDriveSens - curLeftDrive){ \
 			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED ; \
 		} \
 		else {\
 			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 10; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED; \
 		} \
 	} \
 	motor[lDrive] = 0; \
@@ -121,6 +121,13 @@
 	moveSecLift(SEC_LIFT_IDLE_SPEED); \
 }
 
+#define moveToClawPosXY(x, y) { \
+	bool mainGood = false; \
+	bool secGood = false; \
+	while (!mainGood && !secGood) { \
+		clawPosXY(x, y); \
+	} \
+}
 
 
 
@@ -135,16 +142,16 @@
 }
 
 
-#define moveClawPosXY(x, Y) { \
+#define clawPosXY(x, y) { \
 	int newSecArm = 180 + secArmDegree; \
 	int od = sqrt(pow(y, 2) + pow(x, 2)); \
 	int secGoal = acos( (-pow(od, 2)   + 2 * pow(17.5, 2) ) / (2 * pow(17.5, 2) ) ) ; \
 	int mainGoal = 90 + atan(y/x) +  acos(od / (2 * 17.5) ); \
 	\
-	if (mainArmDegree < mainGoal) { \
+	if (mainArmDegree > mainGoal) { \
 		moveMainLift(MAIN_LIFT_UP_SPEED); \
 	} \
-	else if (mainGoal < mainArmDegree) { \
+	else if (mainGoal > mainArmDegree) { \
 		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
 	} \
 	else { \
@@ -156,10 +163,10 @@
 		} \
 	} \
 	\
-	if (newSecArm < secGoal) { \
+	if (newSecArm > secGoal) { \
 		moveSecLift(SEC_LIFT_UP_SPEED); \
 	} \
-	else if (secGoal < newSecArm) { \
+	else if (secGoal > newSecArm) { \
 		moveSecLift(SEC_LIFT_DOWN_SPEED); \
 	} \
 	else { \
