@@ -51,6 +51,8 @@ task main()
 
 	if(mode == 1) {
 
+		moveToCubeReady();
+		wait1Msec(5000);
 
 
 	//move secondary to

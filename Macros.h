@@ -85,7 +85,12 @@
 			moveMainLift(MAIN_LIFT_UP_SPEED); \
 		} \
 	} \
-	moveMainLift(0); \
+	if (hasCube) { \
+		moveMainLift(MAIN_LIFT_CUBE_IDLE); \
+	} \
+	else { \
+		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+	} \
 }
 
 #define moveSecTo(degree) { \
@@ -99,9 +104,22 @@
 			moveSecLift(SEC_LIFT_UP_SPEED); \
 		} \
 	} \
-	moveSecLift(0); \
+	if (hasCube) { \
+		moveSecLift(SEC_LIFT_CUBE_IDLE); \
+	} \
+	else { \
+		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+	} \
 }
 
+
+#define moveToCubeReady() { \
+	while (secArmDegree > -90 || mainArmDegree < 110) { \
+		cubeReadyPos(); \
+	} \
+	moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+	moveSecLift(SEC_LIFT_IDLE_SPEED); \
+}
 
 
 
@@ -156,14 +174,14 @@
 
 
 #define cubeReadyPos() { \
-	if (secArmDegree > -90 || mainArmDegree < 115) { \
+	if (secArmDegree > -90 || mainArmDegree < 110) { \
 		if (secArmDegree <= -90) { \
 			moveSecLift(SEC_LIFT_IDLE_SPEED); \
 		} \
 		else { \
 			moveSecLift(SEC_LIFT_DOWN_SPEED); \
 		} \
-		if (mainArmDegree >= 105) { \
+		if (mainArmDegree >= 110) { \
 			moveMainLift(MAIN_LIFT_IDLE_SPEED); \
 		} \
 		else { \
@@ -198,6 +216,12 @@
 }
 
 
+// Useful things
+//#define abs(x) ((x > 0) ? (x) : -(x))
+#define min(x,y) ((x > y) ? (y) : (x))
+#define max(x,y) ((x > y) ? (x) : (y))
+#define safeSet(power) (max(-MAX_POWER, min(MAX_POWER, power)))
+
 
 //ENCODER CODE
 
@@ -214,5 +238,5 @@
 //to get degree of arms
 #define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 67)
 
-#define mainArmDegree (encoderDegrees(mainArmSens, 84/12) + 30)
+#define mainArmDegree (encoderDegrees(mainArmSens, 84/12) + 28)
 #define secArmDegree 90 + mainArmDegree - (-rawSecArmDegree)
