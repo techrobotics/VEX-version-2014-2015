@@ -29,6 +29,8 @@ task main()
 
 	bool hasCube = false;
 	bool canPress = true;
+	bool mainGood = true;
+	bool secGood = true;
 
 	//Used to compensate autonomous encoders
 	int curRightDrive = 0;
@@ -51,7 +53,10 @@ task main()
 
 	if(mode == 1) {
 
-
+		moveToCubeReady();
+		wait1Msec(2500);
+		moveToClawPosXY(18, 0);
+		wait1Msec(2000);
 
 
 
