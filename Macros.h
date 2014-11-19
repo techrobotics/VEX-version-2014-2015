@@ -13,20 +13,45 @@
 }
 
 #define cubeReadyPos() { \
-  if (secArmDegree > -90 || mainArmDegree < 115) { \
-  	if (secArmDegree <= -90) { \
-  		moveSecLift(SEC_LIFT_IDLE_SPEED); \
-  	} \
-  	else { \
-  		moveSecLift(SEC_LIFT_DOWN_SPEED); \
-  	} \
-    if (mainArmDegree >= 115) { \
-  		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
-  	} \
-  	else { \
-	  	moveMainLift(MAIN_LIFT_UP_SPEED); \
-	  } \
-  } \
+	if (secArmDegree > -90) { \
+		moveSecLift(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else if (secArmDegree < -95) { \
+		moveSecLift(SEC_LIFT_UP_SPEED); \
+	} \
+	else { \
+		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+	} \
+	if (mainArmDegree < 115) { \
+		moveMainLift(MAIN_LIFT_UP_SPEED); \
+	} \
+	else if (mainArmDegree > 120) { \
+		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else { \
+		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+	} \
+}
+
+#define skyriseReadyPos() { \
+	if (secArmDegree > -77) { \
+		moveSecLift(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else if (secArmDegree < -82) { \
+		moveSecLift(SEC_LIFT_UP_SPEED); \
+	} \
+	else { \
+		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+	} \
+	if (mainArmDegree < 135) { \
+		moveMainLift(MAIN_LIFT_UP_SPEED); \
+	} \
+	else if (mainArmDegree > 140) { \
+		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else { \
+		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+	} \
 }
 
 

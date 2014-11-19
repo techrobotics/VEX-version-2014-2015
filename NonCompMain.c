@@ -64,6 +64,10 @@ task main()
 			movingToReady = true;
 			cubeReadyPos();
 		}
+		else if (vexRT[Btn5D] > 0) {
+			movingToReady = true;
+			skyriseReadyPos();
+		}
 		else {
 			movingToReady = false;
 		}
