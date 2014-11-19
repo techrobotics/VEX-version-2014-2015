@@ -145,7 +145,8 @@
 #define clawPosXY(x, y) { \
 	int newSecArm = 180 + secArmDegree; \
 	int od = sqrt(pow(y, 2) + pow(x, 2)); \
-	int secGoal = acos( (-pow(od, 2)   + 2 * pow(17.5, 2) ) / (2 * pow(17.5, 2) ) ) ; \
+	//int secGoal = acos( (-pow(od, 2)   + 2 * pow(17.5, 2) ) / (2 * pow(17.5, 2) ) ) ; \
+	int secGoal = 2 * asin( od / ( 2 * 17.5 ) ); \
 	int mainGoal = 90 + atan(y/x) +  acos(od / (2 * 17.5) ); \
 	\
 	if (mainArmDegree > mainGoal) { \
