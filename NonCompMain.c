@@ -130,12 +130,20 @@ task main()
 		}
 
 		else {
-			if (!movingToReady) {
-				if (hasCube) {
-					moveSecLift(0);
-				}
-				else {
-					moveSecLift(0);
+			if (vexRT[Btn8U] > 0 ) {
+				moveSecLift(SEC_LIFT_UP_SPEED);
+			}
+			else if (vexRT[Btn8D] > 0) {
+				moveSecLift(SEC_LIFT_DOWN_SPEED);
+			}
+			else {
+				if (!movingToReady) {
+					if (hasCube) {
+						moveSecLift(0);
+					}
+					else {
+						moveSecLift(0);
+					}
 				}
 			}
 		}
