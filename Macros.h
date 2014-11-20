@@ -22,10 +22,10 @@
 	else { \
 		moveSecLift(SEC_LIFT_IDLE_SPEED); \
 	} \
-	if (mainArmDegree < 115) { \
+	if (mainArmDegree < 110) { \
 		moveMainLift(MAIN_LIFT_UP_SPEED); \
 	} \
-	else if (mainArmDegree > 120) { \
+	else if (mainArmDegree > 115) { \
 		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
 	} \
 	else { \
@@ -43,10 +43,10 @@
 	else { \
 		moveSecLift(SEC_LIFT_IDLE_SPEED); \
 	} \
-	if (mainArmDegree < 135) { \
+	if (mainArmDegree < 145) { \
 		moveMainLift(MAIN_LIFT_UP_SPEED); \
 	} \
-	else if (mainArmDegree > 140) { \
+	else if (mainArmDegree > 150) { \
 		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
 	} \
 	else { \
