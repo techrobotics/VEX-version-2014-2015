@@ -55,7 +55,7 @@ task main()
 
 		moveToCubeReady();
 		wait1Msec(2500);
-		moveToClawPosXY(18, 0);
+		moveToClawPosXY(18, 10);
 		wait1Msec(2000);
 
 

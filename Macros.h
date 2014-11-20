@@ -148,8 +148,9 @@
 	int newSecArm = rawSecArmDegree + 360; \
 	int od = (int)(sqrt(pow(y, 2) + pow(x, 2))); \
 	\ //int secGoal = (int)(acos( (-pow(od, 2) + 2 * pow(17.5, 2) ) / (2 * pow(17.5, 2) ) ) * (180/PI) ) ; \
-	int secGoal = 2 * (int)(asin( od / ( 2 * 17.5 ) ) * (180/PI) ); \
-	int mainGoal = 90 + (int)(atan(y/x) +  acos(od / (2 * 17.5) ) * 180/PI ); \
+	int secGoal = 2 * (int)(asin( od / ( 2 * 16.5 ) ) * (180/PI) ); \
+	int mainGoal = 90 + (int)(abs(atan(y/x)) * (180/PI)) + (int)(acos(od / (2 * 16.5) ) * (180/PI) ); \
+	\ // (int)(((asin(y/od) * 180/PI)  +  (acos(od / (2 * 16.5) ) * 180/PI ))); \
 	\
 	if (mainArmDegree < mainGoal && !mainGood) { \
 		moveMainLift(MAIN_LIFT_UP_SPEED); \
@@ -230,7 +231,7 @@
 
 
 // Useful things
-//#define abs(x) ((x > 0) ? (x) : -(x))
+#define abs(x) ((x > 0) ? (x) : -(x))
 #define min(x,y) ((x > y) ? (y) : (x))
 #define max(x,y) ((x > y) ? (x) : (y))
 #define safeSet(power) (max(-MAX_POWER, min(MAX_POWER, power)))
