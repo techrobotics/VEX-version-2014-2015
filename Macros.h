@@ -34,10 +34,10 @@
 }
 
 #define skyriseReadyPos() { \
-	if (secArmDegree > -77) { \
+	if (secArmDegree > -75) { \
 		moveSecLift(SEC_LIFT_DOWN_SPEED); \
 	} \
-	else if (secArmDegree < -82) { \
+	else if (secArmDegree < -80) { \
 		moveSecLift(SEC_LIFT_UP_SPEED); \
 	} \
 	else { \

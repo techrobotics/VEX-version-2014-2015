@@ -53,6 +53,10 @@ task autonomous()
 	bool canPress = true;
 	bool movingToReady = false;
 
+	drive(25, 25);
+	wait1Msec(2000);
+	drive(0, 0);
+
 }
 
 
@@ -89,11 +93,11 @@ task usercontrol()
 
 
 		//MOVES TO READY TO GRAB CUBE POSITION
-		if (vexRT[Btn5U] > 0) {
+		if (vexRT[Btn5D] > 0) {
 			movingToReady = true;
 			cubeReadyPos();
 		}
-		else if (vexRT[Btn5D] > 0) {
+		else if (vexRT[Btn5U] > 0) {
 			movingToReady = true;
 			skyriseReadyPos();
 		}

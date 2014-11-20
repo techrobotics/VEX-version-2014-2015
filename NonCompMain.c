@@ -60,11 +60,11 @@ task main()
 
 
 		//MOVES TO READY TO GRAB CUBE POSITION
-		if (vexRT[Btn5U] > 0) {
+		if (vexRT[Btn5D] > 0) {
 			movingToReady = true;
 			cubeReadyPos();
 		}
-		else if (vexRT[Btn5D] > 0) {
+		else if (vexRT[Btn5U] > 0) {
 			movingToReady = true;
 			skyriseReadyPos();
 		}
