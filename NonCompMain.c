@@ -40,23 +40,13 @@ task main()
 
 	//AUTONOMOUS
 
-	//rightDrive((CIRCUMFERENCE));
-
-	/*
-	mode 1 forward grab backwards score (1 point)
-	mode 2 Scores two cubes in (2 points)
-	mode 3 Scores cube into low goal (3 points)
-	mode 4 Puts skyrise into the hole (4 points)
-	mode 5 mlg 360 euphoric quicknoscopes 420BLAZEIT doritos locos mountain dew the cube into the opponent's goal (9001 points)
-	*/
 	int mode = 1;
 
 	if(mode == 1) {
 
-		moveToCubeReady();
-		wait1Msec(2500);
-		moveToClawPosXY(18, 10);
+		turnRightDeg(180);
 		wait1Msec(2000);
+		turnLeftDeg(180);
 
 
 
