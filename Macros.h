@@ -43,10 +43,10 @@
 	else { \
 		moveSecLift(SEC_LIFT_IDLE_SPEED); \
 	} \
-	if (mainArmDegree < 145) { \
+	if (mainArmDegree < 142) { \
 		moveMainLift(MAIN_LIFT_UP_SPEED); \
 	} \
-	else if (mainArmDegree > 150) { \
+	else if (mainArmDegree > 147) { \
 		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
 	} \
 	else { \
