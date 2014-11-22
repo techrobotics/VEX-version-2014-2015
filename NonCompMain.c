@@ -31,6 +31,66 @@ task main()
 	bool canPress = true;
 	bool movingToReady = false;
 
+	bool mainGood = true;
+	bool secGood = true;
+
+	//Used to compensate autonomous encoders
+	int curRightDrive = 0;
+	int curLeftDrive = 0;
+
+
+
+	//AUTONOMOUS
+
+	int mode = 1;
+
+	if(mode == 1) {
+
+
+		moveSecLift(SEC_LIFT_IDLE_SPEED);
+		//clampClaw(-CLAW_CLAMP_SPEED);
+
+		driveDistanceBackward(4);
+		wait1Msec(250);
+		turnRightDeg(90);
+		wait1Msec(250);
+		pivotClaw((-CLAW_PIVOT_SPEED - 2));
+		driveDistanceForward(9);
+		// clampClaw(-CLAW_CLAMP_SPEED);
+		pivotClaw(0);
+		wait1Msec(250);
+		moveToCubeReady();
+		wait1Msec(250);
+		moveToSkyriseReady();
+		wait1Msec(250);
+
+		turnRightDeg(198);
+		wait1Msec(250);
+		clampClaw(-CLAW_CLAMP_SPEED + 10);
+		driveDistanceForward(10);
+		wait1Msec(500);
+		clampClaw(CLAW_CLAMP_SPEED + 25);
+		wait1Msec(250);
+		clampClaw(0);
+		moveMainTo(160);
+		// claw grip whatever
+		// claw pivot up
+
+		driveDistanceBackward(15);
+		wait1Msec(250);
+		turnLeftDeg(28);
+		wait1Msec(250);
+		driveDistanceForward(2);
+		moveMainTo(140);
+		clampClaw(-CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+
+
+	}
+	else if(mode == 2){
+		//NO STRATEGY YET
+	}
+
 
 
 	//USER CONTROL
@@ -183,6 +243,4 @@ task main()
 			}
 		}
 	}
-
-
 }
