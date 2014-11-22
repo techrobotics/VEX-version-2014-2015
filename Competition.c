@@ -61,15 +61,18 @@ task autonomous()
 
 	//DIFFERENT AUTONOMOUS MODES:
 	// 1: RED AUTOLOADER
-
+	// 2: RED OTHER
+	// 3: BLUE AUTOLOADER (REFLECT ONCE RED IS GOOD)
+	// 4: BLUE OTHER (REFLECT WHEN TESTED TOO)
 
 	int mode = 1;
 
+
+	//GIVE IDLE POWERS TO ARMS DON'T FALL DURING FIRST MOVEMENTS
+	moveSecLift(SEC_LIFT_IDLE_SPEED);
+	//clampClaw(-CLAW_CLAMP_SPEED);
+
 	if(mode == 1) {
-
-
-		moveSecLift(SEC_LIFT_IDLE_SPEED);
-		//clampClaw(-CLAW_CLAMP_SPEED);
 
 		driveDistanceBackward(4);
 		wait1Msec(250);
@@ -111,7 +114,38 @@ task autonomous()
 
 	}
 	else if(mode == 2){
-		//NO STRATEGY YET
+
+		//PUSH CUBE BACK
+		driveDistanceBackward(5);
+		wait1Msec(250);
+
+		//TURN TORWARDS CUBE NEXT TO WALL
+		turnLeftDeg(45);
+		wait1Msec(250);
+		moveToCubeReady();
+		wait1Msec(250);
+
+		//OPEN CLAW AND DRIVE TO CUBE
+		clampClaw(-CLAW_CLAMP_SPEED);
+		driveDistanceForward(10);
+		clampClaw(0);
+		wait1Msec(250);
+
+		//CLOSE CLAW
+		clampClaw(CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+
+		//PLACE CUBE ON FLOOR GOAL
+		turnRightDeg(50);
+		wait1Msec(250);
+
+		//LET GO AND DRIVE BACK
+		clampClaw(-CLAW_CLAMP_SPEED);
+		driveDistanceBackward(5);
+		clampClaw(0);
+
+
 	}
 
 }
