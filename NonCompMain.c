@@ -53,23 +53,36 @@ task main()
 
 	if(mode == 1) {
 
+		moveSecLift(SEC_LIFT_IDLE_SPEED);
+
+		driveDistanceBackward(4);
+		wait1Msec(250);
+		turnRightDeg(90);
+		wait1Msec(250);
+		pivotClaw((-CLAW_PIVOT_SPEED - 2));
+		driveDistanceForward(9);
+		// clampClaw(-CLAW_CLAMP_SPEED);
+		pivotClaw(0);
+		wait1Msec(250);
 		moveToCubeReady();
-		wait1Msec(2500);
-		moveToClawPosXY(18, 10);
-		wait1Msec(2000);
+		wait1Msec(250);
+		moveToSkyriseReady();
+		wait1Msec(250);
 
+		turnRightDeg(196);
+		wait1Msec(250);
+		driveDistanceForward(10);
+		wait1Msec(500);
+		clampClaw(CLAW_CLAMP_SPEED);
+		wait1Msec(250);
+		clampClaw(0);
+		moveMainTo(160);
+		// claw grip whatever
+		// claw pivot up
 
+	  driveDistanceBackward(10);
+	  turnLeftDeg(40);
 
-		//move secondary to
-		//moveSecTo(0);
-
-		//pivotClaw(CLAW_PIVOT_SPEED);
-		//wait1MSec(WE DO NOT KNOW);
-		//pivotClaw(0);
-
-		//driveDistance(WE DO NOT KNOW);
-
-		//driveDistance(-WE DO NOT KNOW);
 	}
 	else if(mode == 2){
 		//NO STRATEGY YET

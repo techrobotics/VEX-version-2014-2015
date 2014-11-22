@@ -1,22 +1,47 @@
 
 //ROBOT AUTONOMOUS MOVEMENT MACROS
-#define driveDistance(inch){ \
+#define driveDistanceForward(inch){ \
 	curLeftDrive = lDriveSens; \
 	curRightDrive = rDriveSens; \
-	while (lDriveSens - curLeftDrive < encoderTicksInch(inch, 12/18)) \
+	int goal = encoderTicksInch(inch, 12/18); \
+	while (lDriveSens - curLeftDrive < goal ) \
 	{ \
-		if (lDriveSens - curLeftDrive < rDriveSens - curRightDrive){ \
-			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
-		} \
-		else if (rDriveSens - curRightDrive < lDriveSens - curLeftDrive){ \
-			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED ; \
-		} \
-		else {\
-			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED; \
-		} \
+			if (lDriveSens - curLeftDrive < rDriveSens - curRightDrive){ \
+				motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+				motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
+			} \
+			else if (rDriveSens - curRightDrive < lDriveSens - curLeftDrive){ \
+				motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
+				motor[rDrive] = AUTONOMOUS_DRIVING_SPEED ; \
+			} \
+			else {\
+				motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+				motor[rDrive] = AUTONOMOUS_DRIVING_SPEED; \
+			} \
+	} \
+	motor[lDrive] = 0; \
+	motor[rDrive] = 0; \
+}
+
+
+#define driveDistanceBackward(inch){ \
+	curLeftDrive = lDriveSens; \
+	curRightDrive = rDriveSens; \
+	int goal = encoderTicksInch(-inch, 12/18); \
+	while (lDriveSens - curLeftDrive > goal) \
+	{ \
+			if (lDriveSens - curLeftDrive > rDriveSens - curRightDrive){ \
+				motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+				motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED + 5; \
+			} \
+			else if (rDriveSens - curRightDrive > lDriveSens - curLeftDrive){ \
+				motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED + 5; \
+				motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED ; \
+			} \
+			else {\
+				motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+				motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+			} \
 	} \
 	motor[lDrive] = 0; \
 	motor[rDrive] = 0; \
@@ -121,6 +146,14 @@
 	moveSecLift(SEC_LIFT_IDLE_SPEED); \
 }
 
+#define moveToSkyriseReady() { \
+	while (secArmDegree > -45 || mainArmDegree < 145) { \
+		skyriseReadyPos(); \
+	} \
+	moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+	moveSecLift(SEC_LIFT_IDLE_SPEED); \
+}
+
 #define moveToClawPosXY(x, y) { \
 	mainGood = false; \
 	secGood = false; \
@@ -188,19 +221,44 @@
 
 
 #define cubeReadyPos() { \
-	if (secArmDegree > -90 || mainArmDegree < 110) { \
-		if (secArmDegree <= -90) { \
-			moveSecLift(SEC_LIFT_IDLE_SPEED); \
-		} \
-		else { \
-			moveSecLift(SEC_LIFT_DOWN_SPEED); \
-		} \
-		if (mainArmDegree >= 110) { \
-			moveMainLift(MAIN_LIFT_IDLE_SPEED); \
-		} \
-		else { \
-			moveMainLift(MAIN_LIFT_UP_SPEED); \
-		} \
+	if (secArmDegree > -90) { \
+		moveSecLift(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else if (secArmDegree < -95) { \
+		moveSecLift(SEC_LIFT_UP_SPEED); \
+	} \
+	else { \
+		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+	} \
+	if (mainArmDegree < 110) { \
+		moveMainLift(MAIN_LIFT_UP_SPEED); \
+	} \
+	else if (mainArmDegree > 115) { \
+		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else { \
+		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
+	} \
+}
+
+#define skyriseReadyPos() { \
+	if (secArmDegree > -75) { \
+		moveSecLift(SEC_LIFT_DOWN_SPEED); \
+	} \
+	else if (secArmDegree < -80) { \
+		moveSecLift(SEC_LIFT_UP_SPEED); \
+	} \
+	else { \
+		moveSecLift(SEC_LIFT_IDLE_SPEED); \
+	} \
+	if (mainArmDegree < 145) { \
+		moveMainLift(MAIN_LIFT_UP_SPEED); \
+	} \
+	else if (mainArmDegree > 150) { \
+		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
+	} \
+	else { \
+		moveMainLift(MAIN_LIFT_IDLE_SPEED); \
 	} \
 }
 
@@ -252,5 +310,5 @@
 //to get degree of arms
 #define rawSecArmDegree (encoderDegrees(secArmSens, 60/12) - 67)
 
-#define mainArmDegree (encoderDegrees(mainArmSens, 84/12) + 28)
+#define mainArmDegree (encoderDegrees(mainArmSens, 84/12) + 30)
 #define secArmDegree 90 + mainArmDegree - (-rawSecArmDegree)
