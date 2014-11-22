@@ -62,9 +62,9 @@ task main()
 		moveToSkyriseReady();
 		wait1Msec(250);
 
-		turnRightDeg(201);
+		turnRightDeg(198);
 		wait1Msec(250);
-		clampClaw(-CLAW_CLAMP_SPEED);
+		clampClaw(-CLAW_CLAMP_SPEED + 10);
 		driveDistanceForward(10);
 		wait1Msec(500);
 		clampClaw(CLAW_CLAMP_SPEED + 25);
@@ -76,7 +76,12 @@ task main()
 
 	  driveDistanceBackward(15);
 	  wait1Msec(250);
-	  turnLeftDeg(25);
+	  turnLeftDeg(28);
+	  wait1Msec(250);
+	  driveDistanceForward(2);
+	  moveMainTo(140);
+	  clampClaw(-CLAW_CLAMP_SPEED);
+	  wait1Msec(500);
 
 
 	}
