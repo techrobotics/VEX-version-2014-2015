@@ -44,8 +44,9 @@ task main()
 
 	if(mode == 1) {
 
-<<<<<<< HEAD
+
 		moveSecLift(SEC_LIFT_IDLE_SPEED);
+		//clampClaw(-CLAW_CLAMP_SPEED);
 
 		driveDistanceBackward(4);
 		wait1Msec(250);
@@ -61,24 +62,22 @@ task main()
 		moveToSkyriseReady();
 		wait1Msec(250);
 
-		turnRightDeg(196);
+		turnRightDeg(201);
 		wait1Msec(250);
+		clampClaw(-CLAW_CLAMP_SPEED);
 		driveDistanceForward(10);
 		wait1Msec(500);
-		clampClaw(CLAW_CLAMP_SPEED);
+		clampClaw(CLAW_CLAMP_SPEED + 25);
 		wait1Msec(250);
 		clampClaw(0);
 		moveMainTo(160);
 		// claw grip whatever
 		// claw pivot up
 
-	  driveDistanceBackward(10);
-	  turnLeftDeg(40);
-=======
-		turnRightDeg(180);
-		wait1Msec(2000);
-		turnLeftDeg(180);
->>>>>>> 608432faa5eed8842a3fd168508376a19f11bc88
+	  driveDistanceBackward(15);
+	  wait1Msec(250);
+	  turnLeftDeg(25);
+
 
 	}
 	else if(mode == 2){
