@@ -111,8 +111,8 @@ task autonomous()
 		clampClaw(-CLAW_CLAMP_SPEED);
 		wait1Msec(500);
 
-
 	}
+
 	else if(mode == 2){
 
 		//PUSH CUBE BACK
@@ -145,7 +145,14 @@ task autonomous()
 		driveDistanceBackward(5);
 		clampClaw(0);
 
+	}
 
+	else if (mode == 3) {
+		//REFLECT MODE 1 ONCE TESTED
+	}
+
+	else if (mode == 4) {
+		//REFLECT MODE 2 ONCE TESTED
 	}
 
 }
