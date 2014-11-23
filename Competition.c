@@ -60,27 +60,193 @@ task autonomous()
 
 
 	//DIFFERENT AUTONOMOUS MODES:
-	// 1: RED AUTOLOADER
+	// 1: RED SKYRISE
 	// 2: RED OTHER
-	// 3: BLUE AUTOLOADER (REFLECT ONCE RED IS GOOD)
-	// 4: BLUE OTHER (REFLECT WHEN TESTED TOO)
+	// 3: BLUE SKYRISE
+	// 4: BLUE OTHER
 
-	int mode = 1;
+	int mode = 4;
 
 
 	//GIVE IDLE POWERS TO ARMS DON'T FALL DURING FIRST MOVEMENTS
 	moveSecLift(SEC_LIFT_IDLE_SPEED);
-	//clampClaw(-CLAW_CLAMP_SPEED);
 
 	if(mode == 1) {
 
+		//PUSH CUBE BACK
+		driveDistanceBackward(17);
+		wait1Msec(250);
+
+		//TURN TORWARDS CUBE NEXT TO WALL
+		turnRightDeg(40);
+		wait1Msec(250);
+		moveToCubeReady();
+		wait1Msec(250);
+
+		//OPEN CLAW
+		clampClaw(-CLAW_CLAMP_SPEED);
+		pivotClaw(-CLAW_PIVOT_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		pivotClaw(0);
+
+		//DRIVE TO CUBE
+		driveDistanceForward(9);
+		wait1Msec(250);
+
+
+		//CLOSE CLAW
+		clampClaw(CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
 		driveDistanceBackward(4);
+		wait1Msec(250);
+
+		//PLACE CUBE ON FLOOR GOAL
+		turnLeftDeg(60);
+		wait1Msec(250);
+
+		//LET GO AND DRIVE BACK
+		clampClaw(-CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		driveDistanceBackward(5);
+
+	}
+
+	else if(mode == 2){
+
+		//PUSH CUBE BACK
+		driveDistanceBackward(17);
+		wait1Msec(250);
+
+		//TURN TORWARDS CUBE NEXT TO WALL
+		turnLeftDeg(40);
+		wait1Msec(250);
+		moveToCubeReady();
+		wait1Msec(250);
+
+		//OPEN CLAW
+		clampClaw(-CLAW_CLAMP_SPEED);
+		pivotClaw(-CLAW_PIVOT_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		pivotClaw(0);
+
+		//DRIVE TO CUBE
+		driveDistanceForward(9);
+		wait1Msec(250);
+
+
+		//CLOSE CLAW
+		clampClaw(CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		driveDistanceBackward(4);
+		wait1Msec(250);
+
+		//PLACE CUBE ON FLOOR GOAL
+		turnRightDeg(55);
+		wait1Msec(250);
+
+		//LET GO AND DRIVE BACK
+		clampClaw(-CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		driveDistanceBackward(5);
+
+	}
+
+	else if (mode == 3) {
+		//PUSH CUBE BACK
+		driveDistanceBackward(17);
+		wait1Msec(250);
+
+		//TURN TORWARDS CUBE NEXT TO WALL
+		turnLeftDeg(40);
+		wait1Msec(250);
+		moveToCubeReady();
+		wait1Msec(250);
+
+		//OPEN CLAW
+		clampClaw(-CLAW_CLAMP_SPEED);
+		pivotClaw(-CLAW_PIVOT_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		pivotClaw(0);
+
+		//DRIVE TO CUBE
+		driveDistanceForward(9);
+		wait1Msec(250);
+
+
+		//CLOSE CLAW
+		clampClaw(CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		driveDistanceBackward(4);
+		wait1Msec(250);
+
+		//PLACE CUBE ON FLOOR GOAL
+		turnRightDeg(55);
+		wait1Msec(250);
+
+		//LET GO AND DRIVE BACK
+		clampClaw(-CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		driveDistanceBackward(5);
+	}
+
+	else if (mode == 4) {
+		//PUSH CUBE BACK
+		driveDistanceBackward(17);
+		wait1Msec(250);
+
+		//TURN TORWARDS CUBE NEXT TO WALL
+		turnRightDeg(40);
+		wait1Msec(250);
+		moveToCubeReady();
+		wait1Msec(250);
+
+		//OPEN CLAW
+		clampClaw(-CLAW_CLAMP_SPEED);
+		pivotClaw(-CLAW_PIVOT_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		pivotClaw(0);
+
+		//DRIVE TO CUBE
+		driveDistanceForward(9);
+		wait1Msec(250);
+
+
+		//CLOSE CLAW
+		clampClaw(CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		driveDistanceBackward(4);
+		wait1Msec(250);
+
+		//PLACE CUBE ON FLOOR GOAL
+		turnLeftDeg(55);
+		wait1Msec(250);
+
+		//LET GO AND DRIVE BACK
+		clampClaw(-CLAW_CLAMP_SPEED);
+		wait1Msec(500);
+		clampClaw(0);
+		driveDistanceBackward(5);
+	}
+
+	else if(mode == 5) {
+
+		driveDistanceBackward(5);
 		wait1Msec(250);
 		turnRightDeg(90);
 		wait1Msec(250);
 		pivotClaw((-CLAW_PIVOT_SPEED - 2));
-		driveDistanceForward(9);
-		// clampClaw(-CLAW_CLAMP_SPEED);
+		driveDistanceForward((9-1.94));
 		pivotClaw(0);
 		wait1Msec(250);
 		moveToCubeReady();
@@ -89,70 +255,31 @@ task autonomous()
 		wait1Msec(250);
 
 		//CHANGES
-		turnRightDeg(198);
+		turnRightDeg(FIRST_TURN_ANGLE);
 
 		wait1Msec(250);
-		clampClaw(-CLAW_CLAMP_SPEED + 10);
-		driveDistanceForward(10);
-		wait1Msec(500);
-		clampClaw(CLAW_CLAMP_SPEED + 25);
+		driveDistanceForward(5);
 		wait1Msec(250);
-		clampClaw(0);
+		clampClaw(CLAW_CLAMP_SPEED + 25);
+		wait1Msec(500);
 		moveMainTo(160);
-		driveDistanceBackward(15);
+		driveDistanceBackward(10);
 		wait1Msec(250);
 
 		//CHANGES
 		turnLeftDeg(28);
 		wait1Msec(250);
-		driveDistanceForward(2);
+		driveDistanceForward(5);
 
 		moveMainTo(140);
 		clampClaw(-CLAW_CLAMP_SPEED);
 		wait1Msec(500);
-
-	}
-
-	else if(mode == 2){
-
-		//PUSH CUBE BACK
-		driveDistanceBackward(5);
-		wait1Msec(250);
-
-		//TURN TORWARDS CUBE NEXT TO WALL
-		turnLeftDeg(45);
-		wait1Msec(250);
-		moveToCubeReady();
-		wait1Msec(250);
-
-		//OPEN CLAW AND DRIVE TO CUBE
-		clampClaw(-CLAW_CLAMP_SPEED);
-		driveDistanceForward(10);
-		clampClaw(0);
-		wait1Msec(250);
-
-		//CLOSE CLAW
-		clampClaw(CLAW_CLAMP_SPEED);
-		wait1Msec(500);
-		clampClaw(0);
-
-		//PLACE CUBE ON FLOOR GOAL
-		turnRightDeg(50);
-		wait1Msec(250);
-
-		//LET GO AND DRIVE BACK
-		clampClaw(-CLAW_CLAMP_SPEED);
-		driveDistanceBackward(5);
 		clampClaw(0);
 
 	}
 
-	else if (mode == 3) {
-		//REFLECT MODE 1 ONCE TESTED
-	}
-
-	else if (mode == 4) {
-		//REFLECT MODE 2 ONCE TESTED
+	else if (mode == 6) {
+		driveDistanceBackward(20);
 	}
 
 }
