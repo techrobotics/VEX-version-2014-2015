@@ -4,7 +4,7 @@
 #define driveDistanceForward(inch){ \
 	curLeftDrive = lDriveSens; \
 	curRightDrive = rDriveSens; \
-	int goal = encoderTicksInch(inch, 12/18); \
+	int goal = encoderTicksInch((inch), 12/18); \
 	while (lDriveSens - curLeftDrive < goal ) \
 	{ \
 			if (lDriveSens - curLeftDrive < rDriveSens - curRightDrive){ \
@@ -28,7 +28,7 @@
 #define driveDistanceBackward(inch){ \
 	curLeftDrive = lDriveSens; \
 	curRightDrive = rDriveSens; \
-	int goal = encoderTicksInch(-inch, 12/18); \
+	int goal = encoderTicksInch((-inch), 12/18); \
 	while (lDriveSens - curLeftDrive > goal) \
 	{ \
 			if (lDriveSens - curLeftDrive > rDriveSens - curRightDrive){ \
@@ -53,7 +53,7 @@
 #define turnRightDeg(degree){ \
 	curLeftDrive = lDriveSens; \
 	curRightDrive = rDriveSens; \
-	int arcR = (degree * PI * DIAMETER) / 360; \
+	int arcR = ((degree - 5) * PI * DIAMETER) / 360; \
 	while ( (lDriveSens - curLeftDrive <= encoderTicksInch(arcR, 12/18)) || (rDriveSens - curRightDrive >= encoderTicksInch(-arcR, 12/18)) ) { \
 		if (lDriveSens - curLeftDrive <= encoderTicksInch(arcR, 12/18)) { \
 			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
@@ -75,7 +75,7 @@
 #define turnLeftDeg(degree){ \
 	curLeftDrive = lDriveSens; \
 	curRightDrive = rDriveSens; \
-	int arcL = (degree * PI * DIAMETER) / 360; \
+	int arcL = ((degree- 5) * PI * DIAMETER) / 360; \
 	while ( (lDriveSens - curLeftDrive >= encoderTicksInch(-arcL, 12/18)) || (rDriveSens - curRightDrive <= encoderTicksInch(arcL, 12/18)) ) { \
 		if (lDriveSens - curLeftDrive >= encoderTicksInch(-arcL, 12/18)) { \
 			motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
