@@ -40,7 +40,9 @@ task main()
 
 	//AUTONOMOUS
 
-	int mode = 1;
+	int mode = 2;
+
+
 
 	if(mode == 1) {
 
@@ -74,19 +76,24 @@ task main()
 		// claw grip whatever
 		// claw pivot up
 
-	  driveDistanceBackward(15);
-	  wait1Msec(250);
-	  turnLeftDeg(28);
-	  wait1Msec(250);
-	  driveDistanceForward(2);
-	  moveMainTo(140);
-	  clampClaw(-CLAW_CLAMP_SPEED);
-	  wait1Msec(500);
+		driveDistanceBackward(15);
+		wait1Msec(250);
+		turnLeftDeg(28);
+		wait1Msec(250);
+		driveDistanceForward(2);
+		moveMainTo(140);
+		clampClaw(-CLAW_CLAMP_SPEED);
+		wait1Msec(500);
 
 
 	}
 	else if(mode == 2){
-		//NO STRATEGY YET
+		moveToCubeReady();
+		wait1Msec(1500);
+		moveToClawPosXY(18, 10);
+
+
+		wait1Msec(5000);
 	}
 
 
