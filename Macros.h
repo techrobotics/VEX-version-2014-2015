@@ -158,7 +158,7 @@
 	mainGood = false; \
 	secGood = false; \
 	while (!mainGood || !secGood) { \
-		clawPosXY(x, y); \
+		clawPosXY((float)x, (float)y); \
 	} \
 	moveMainLift(MAIN_LIFT_IDLE_SPEED); \
 	moveSecLift(SEC_LIFT_IDLE_SPEED); \
@@ -181,17 +181,15 @@
 //DOES NOT WORK
 /*
 #define clawPosXY(x, y) { \
-	int newSecArm = rawSecArmDegree + 360; \
-	int od = (int)(sqrt(pow(y, 2) + pow(x, 2))); \
-	\ //int secGoal = (int)(acos( (-pow(od, 2) + 2 * pow(17.5, 2) ) / (2 * pow(17.5, 2) ) ) * (180/PI) ) ; \
-	int secGoal = 2 * (int)(asin( od / ( 2 * 16.5 ) ) * (180/PI) ); \
-	int mainGoal = 90 + (int)(abs(atan(y/x)) * (180/PI)) + (int)(acos(od / (2 * 16.5) ) * (180/PI) ); \
-	\ // (int)(((asin(y/od) * 180/PI)  +  (acos(od / (2 * 16.5) ) * 180/PI ))); \
+	float newSecArm = rawSecArmDegree + 360; \
+	float od = (sqrt(pow(y, 2) + pow(x, 2))); \
+	float secGoal = 2 * (asin( od / ( 2 * 16.5 ) ) * (180/PI) ); \
+	float mainGoal = 90 + ((atan(y/x)) * (180/PI)) + (acos(od / (2 * 16.5) ) * (180/PI) ); \
 	\
-	if (mainArmDegree < mainGoal && !mainGood) { \
+	if ((mainArmDegree < mainGoal - 5) && !mainGood) { \
 		moveMainLift(MAIN_LIFT_UP_SPEED); \
 	} \
-	else if (mainGoal < mainArmDegree && !mainGood) { \
+	else if ((mainGoal + 5 < mainArmDegree) && !mainGood) { \
 		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
 	} \
 	else { \
@@ -204,10 +202,10 @@
 		} \
 	} \
 	\
-	if (newSecArm < secGoal && !secGood) { \
+	if ((newSecArm < secGoal - 5) && !secGood) { \
 		moveSecLift(SEC_LIFT_UP_SPEED); \
 	} \
-	else if (secGoal < newSecArm && !secGood) { \
+	else if ((secGoal + 5 < newSecArm) && !secGood) { \
 		moveSecLift(SEC_LIFT_DOWN_SPEED); \
 	} \
 	\

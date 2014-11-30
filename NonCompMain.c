@@ -42,7 +42,9 @@ task main()
 
 	//AUTONOMOUS
 
-	int mode = 1;
+	int mode = 2;
+
+
 
 	if(mode == 1) {
 
@@ -88,7 +90,12 @@ task main()
 
 	}
 	else if(mode == 2){
-		//NO STRATEGY YET
+		moveToCubeReady();
+		wait1Msec(1500);
+		moveToClawPosXY(18, 10);
+
+
+		wait1Msec(5000);
 	}
 
 
