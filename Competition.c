@@ -51,8 +51,8 @@ task autonomous()
 	//INITIALIZE VARIABLES
 	bool hasCube = false;
 
-	//bool mainGood = true;
-	//bool secGood = true;
+	bool mainGood = true;
+	bool secGood = true;
 
 	//Used to compensate autonomous encoders
 	int curRightDrive = 0;
@@ -293,12 +293,110 @@ task usercontrol()
 	bool hasCube = false;
 	bool canPress = true;
 	bool movingToReady = false;
+	bool mainGood = false;
+	bool secGood = false;
 
+	moveToCubeReady();
+	float x = 17.5;
+	float y = -10;
 	while (true)
 	{
+		//NEED TO KEEP FALSE BECAUSE USED IN AUTONOMOUS
+		mainGood = false;
+		secGood = false;
+
+		clawPosXY(x, y);
 	  drive(vexRT[Ch3], vexRT[Ch2]);
 
 
+	  if (vexRT[Btn7L] == 0) {
+			canPress = true;
+		}
+
+		//TOGGLE BETWEEN CUBE AND NO CUBE
+		if (vexRT[Btn7L] > 0) {
+			if (!hasCube && canPress) {
+				hasCube = true;
+				canPress = false;
+			}
+
+			else if (hasCube && canPress) {
+				hasCube = false;
+				canPress = false;
+			}
+		}
+
+
+		//MOVES TO READY TO GRAB CUBE POSITION
+		if (vexRT[Btn5D] > 0) {
+			movingToReady = true;
+			x = 17.5;
+			y = -10;
+		}
+		else if (vexRT[Btn5U] > 0) {
+			movingToReady = true;
+			x = 17;
+			y = -4;
+		}
+		else {
+			movingToReady = false;
+		}
+
+
+		//CHANGE (X, Y) COORDINATES
+
+		if (vexRT[Btn8R]) {
+			x += INCREMENT_AMOUNT;
+		}
+		else if (vexRT[Btn8L]) {
+			x -= INCREMENT_AMOUNT;
+		}
+
+		if (vexRT[Btn8U]) {
+			y += INCREMENT_AMOUNT;
+		}
+		else if (vexRT[Btn8D]) {
+			y -= INCREMENT_AMOUNT;
+		}
+
+
+
+
+
+
+		//CLAW
+		if (vexRT[Btn6U] > 0) {
+			clampClaw(CLAW_CLAMP_SPEED);
+		}
+		else if (vexRT[Btn6D] > 0) {
+			clampClaw(-CLAW_CLAMP_SPEED);
+		}
+		else {
+			clampClaw(0);
+		}
+
+
+
+		//CLAW PIVOT
+		if (vexRT[Btn7U] > 0) {
+			pivotClaw(CLAW_PIVOT_SPEED);
+		}
+		else if (vexRT[Btn7D] > 0) {
+			pivotClaw(-CLAW_PIVOT_SPEED);
+		}
+		else {
+			if (hasCube) {
+				pivotClaw(CLAW_PIVOT_IDLE_SPEED);
+			}
+			else {
+				pivotClaw(0);
+			}
+		}
+	}
+
+
+	  //BEFORE USING FUNCTION
+	  /*
 		//USED TO MAKE SURE BUTTON IS RELEASED BEFORE PRESSING AGAIN
 		if (vexRT[Btn7L] == 0) {
 			canPress = true;
@@ -442,4 +540,5 @@ task usercontrol()
 			}
 		}
 	}
+	*/
 }

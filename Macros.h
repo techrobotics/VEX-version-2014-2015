@@ -7,18 +7,18 @@
 	int goal = encoderTicksInch((inch), 12/18); \
 	while (lDriveSens - curLeftDrive < goal ) \
 	{ \
-			if (lDriveSens - curLeftDrive < rDriveSens - curRightDrive){ \
-				motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-				motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
-			} \
-			else if (rDriveSens - curRightDrive < lDriveSens - curLeftDrive){ \
-				motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
-				motor[rDrive] = AUTONOMOUS_DRIVING_SPEED ; \
-			} \
-			else {\
-				motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
-				motor[rDrive] = AUTONOMOUS_DRIVING_SPEED; \
-			} \
+		if (lDriveSens - curLeftDrive < rDriveSens - curRightDrive){ \
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
+		} \
+		else if (rDriveSens - curRightDrive < lDriveSens - curLeftDrive){ \
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED - 5; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED ; \
+		} \
+		else {\
+			motor[lDrive] = AUTONOMOUS_DRIVING_SPEED; \
+			motor[rDrive] = AUTONOMOUS_DRIVING_SPEED; \
+		} \
 	} \
 	motor[lDrive] = 0; \
 	motor[rDrive] = 0; \
@@ -31,18 +31,18 @@
 	int goal = encoderTicksInch((-inch), 12/18); \
 	while (lDriveSens - curLeftDrive > goal) \
 	{ \
-			if (lDriveSens - curLeftDrive > rDriveSens - curRightDrive){ \
-				motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
-				motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED + 5; \
-			} \
-			else if (rDriveSens - curRightDrive > lDriveSens - curLeftDrive){ \
-				motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED + 5; \
-				motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED ; \
-			} \
-			else {\
-				motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
-				motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED; \
-			} \
+		if (lDriveSens - curLeftDrive > rDriveSens - curRightDrive){ \
+			motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+			motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED + 5; \
+		} \
+		else if (rDriveSens - curRightDrive > lDriveSens - curLeftDrive){ \
+			motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED + 5; \
+			motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED ; \
+		} \
+		else {\
+			motor[lDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+			motor[rDrive] = -AUTONOMOUS_DRIVING_SPEED; \
+		} \
 	} \
 	motor[lDrive] = 0; \
 	motor[rDrive] = 0; \
@@ -152,8 +152,6 @@
 }
 
 
-//DOES NOT WORK
-/*
 #define moveToClawPosXY(x, y) { \
 	mainGood = false; \
 	secGood = false; \
@@ -163,7 +161,7 @@
 	moveMainLift(MAIN_LIFT_IDLE_SPEED); \
 	moveSecLift(SEC_LIFT_IDLE_SPEED); \
 }
-*/
+
 
 
 
@@ -178,48 +176,58 @@
 }
 
 
-//DOES NOT WORK
-/*
 #define clawPosXY(x, y) { \
 	float newSecArm = rawSecArmDegree + 360; \
 	float od = (sqrt(pow(y, 2) + pow(x, 2))); \
 	float secGoal = 2 * (asin( od / ( 2 * 16.5 ) ) * (180/PI) ); \
 	float mainGoal = 90 + ((atan(y/x)) * (180/PI)) + (acos(od / (2 * 16.5) ) * (180/PI) ); \
 	\
-	if ((mainArmDegree < mainGoal - 5) && !mainGood) { \
-		moveMainLift(MAIN_LIFT_UP_SPEED); \
-	} \
-	else if ((mainGoal + 5 < mainArmDegree) && !mainGood) { \
-		moveMainLift(MAIN_LIFT_DOWN_SPEED); \
-	} \
-	else { \
-		mainGood = true; \
-		if (hasCube) { \
-			moveMainLift(MAIN_LIFT_CUBE_IDLE); \
+	if (od < 25 && x > 0 && y > -16) { \
+		if ((mainArmDegree < mainGoal - 3) && !mainGood) { \
+			moveMainLift(MAIN_LIFT_UP_SPEED); \
+		} \
+		else if ((mainGoal + 3 < mainArmDegree) && !mainGood) { \
+			moveMainLift(MAIN_LIFT_DOWN_SPEED); \
 		} \
 		else { \
-			moveMainLift(MAIN_LIFT_IDLE_SPEED);  \
+			mainGood = true; \
+			if (hasCube) { \
+				moveMainLift(MAIN_LIFT_CUBE_IDLE); \
+			} \
+			else { \
+				moveMainLift(MAIN_LIFT_IDLE_SPEED);  \
+			} \
+		} \
+		\
+		if ((newSecArm < secGoal - 3) && !secGood) { \
+			moveSecLift(SEC_LIFT_UP_SPEED); \
+		} \
+		else if ((secGoal + 3 < newSecArm) && !secGood) { \
+			moveSecLift(SEC_LIFT_DOWN_SPEED); \
+		} \
+		\
+		else { \
+			secGood = true; \
+			if (hasCube) { \
+				moveSecLift(SEC_LIFT_CUBE_IDLE); \
+			} \
+			else { \
+				moveSecLift(SEC_LIFT_IDLE_SPEED); \
+			} \
 		} \
 	} \
-	\
-	if ((newSecArm < secGoal - 5) && !secGood) { \
-		moveSecLift(SEC_LIFT_UP_SPEED); \
-	} \
-	else if ((secGoal + 5 < newSecArm) && !secGood) { \
-		moveSecLift(SEC_LIFT_DOWN_SPEED); \
-	} \
-	\
 	else { \
-		secGood = true; \
 		if (hasCube) { \
+			moveMainLift(MAIN_LIFT_CUBE_IDLE); \
 			moveSecLift(SEC_LIFT_CUBE_IDLE); \
 		} \
 		else { \
+			moveMainLift(MAIN_LIFT_IDLE_SPEED); \
 			moveSecLift(SEC_LIFT_IDLE_SPEED); \
 		} \
 	} \
 }
-*/
+
 
 
 #define cubeReadyPos() { \
