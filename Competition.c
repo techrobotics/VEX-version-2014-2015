@@ -291,14 +291,18 @@ task usercontrol()
 {
 	//INITIALIZE VARIABLES
 	bool hasCube = false;
-	bool canPress = true;
+	bool canPress1 = true;
+	bool canPress2 = true;
 	bool movingToReady = false;
 	bool mainGood = false;
 	bool secGood = false;
 
+	int scaleFactor = 1;
+
 	moveToCubeReady();
 	float x = 17.5;
 	float y = -10;
+
 	while (true)
 	{
 		//NEED TO KEEP FALSE BECAUSE USED IN AUTONOMOUS
@@ -306,23 +310,39 @@ task usercontrol()
 		secGood = false;
 
 		clawPosXY(x, y);
-	  drive(vexRT[Ch3], vexRT[Ch2]);
+	  drive((vexRT[Ch3]/scaleFactor), (vexRT[Ch2]/scaleFactor));
 
 
 	  if (vexRT[Btn7L] == 0) {
-			canPress = true;
+			canPress1 = true;
+		}
+		if (vexRT[Btn7R] == 0) {
+			canPress2 = true;
 		}
 
 		//TOGGLE BETWEEN CUBE AND NO CUBE
 		if (vexRT[Btn7L] > 0) {
-			if (!hasCube && canPress) {
+			if (!hasCube && canPress1) {
 				hasCube = true;
-				canPress = false;
+				canPress1 = false;
 			}
 
-			else if (hasCube && canPress) {
+			else if (hasCube && canPress1) {
 				hasCube = false;
-				canPress = false;
+				canPress1 = false;
+			}
+		}
+
+		//TOGGLE BETWEEN SENSITIVITY
+		if (vexRT[Btn7R] > 0) {
+			if (scaleFactor == 1 && canPress2) {
+				scaleFactor = SCALE_AMT;
+				canPress2 = false;
+			}
+
+			else if (scaleFactor == SCALE_AMT && canPress2) {
+				scaleFactor = 1;
+				canPress2 = false;
 			}
 		}
 
@@ -372,7 +392,7 @@ task usercontrol()
 			clampClaw(-CLAW_CLAMP_SPEED);
 		}
 		else {
-			clampClaw(0);
+			clampClaw(0/ scaleFactor);
 		}
 
 
@@ -434,10 +454,10 @@ task usercontrol()
 
 		//MAIN LIFT
 		if (vexRT[Btn7U] > 0 && mainArmDegree < 140) {
-			moveMainLift(MAIN_LIFT_UP_SPEED);
+			moveMainLift(MAIN_LIFT_UP_SPEED/ scaleFactor);
 		}
 		else if (vexRT[Btn7D] > 0) {
-			moveMainLift(MAIN_LIFT_DOWN_SPEED);
+			moveMainLift(MAIN_LIFT_DOWN_SPEED/ scaleFactor);
 		}
 		else {
 			if (!movingToReady) {
@@ -454,10 +474,10 @@ task usercontrol()
 		//SECONDARY LIFT
 		if (secArmDegree <= 85) {
 			if (vexRT[Btn8U] > 0 ) {
-				moveSecLift(SEC_LIFT_UP_SPEED);
+				moveSecLift(SEC_LIFT_UP_SPEED/ scaleFactor);
 			}
 			else if (vexRT[Btn8D] > 0) {
-				moveSecLift(SEC_LIFT_DOWN_SPEED);
+				moveSecLift(SEC_LIFT_DOWN_SPEED/ scaleFactor);
 			}
 			else {
 				if (!movingToReady) {
@@ -473,10 +493,10 @@ task usercontrol()
 
 		else if (secArmDegree > 95) {
 			if (vexRT[Btn8U] > 0) {
-				moveSecLift(-SEC_LIFT_DOWN_SPEED);
+				moveSecLift(-SEC_LIFT_DOWN_SPEED/ scaleFactor);
 			}
 			else if (vexRT[Btn8D] > 0) {
-				moveSecLift(-SEC_LIFT_UP_SPEED);
+				moveSecLift(-SEC_LIFT_UP_SPEED/ scaleFactor);
 			}
 			else {
 				if (!movingToReady) {
@@ -492,10 +512,10 @@ task usercontrol()
 
 		else {
 			if (vexRT[Btn8U] > 0 ) {
-				moveSecLift(SEC_LIFT_UP_SPEED);
+				moveSecLift(SEC_LIFT_UP_SPEED/ scaleFactor);
 			}
 			else if (vexRT[Btn8D] > 0) {
-				moveSecLift(SEC_LIFT_DOWN_SPEED);
+				moveSecLift(SEC_LIFT_DOWN_SPEED/ scaleFactor);
 			}
 			else {
 				if (!movingToReady) {
